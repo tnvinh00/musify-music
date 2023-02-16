@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { REST_URL } from 'constants/REST_URL';
 import axiosClient from 'api/axios';
 import { ResponseDataType } from 'types/api.type';
+import AppHeader from 'components/AppHeader/AppHeader';
 
 export type AlbumPageProps = {
   albumData: ResponseDataType;
@@ -15,9 +16,13 @@ const AlbumPage = ({ albumData }: AlbumPageProps) => {
   const arr = router.query;
 
   return (
-    <div>
+    <>
+      <AppHeader
+        title={albumData?.title}
+        description={albumData?.description}
+      />
       {/* <h1>Album page for {slug} with ID {id}</h1> */}
-    </div>
+    </>
   );
 }
 
