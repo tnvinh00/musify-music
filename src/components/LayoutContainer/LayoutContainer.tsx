@@ -1,5 +1,5 @@
 import React from 'react'
-import Loader from '../Loader/Loader';
+import Loader from 'components/Loader/Loader';
 import { useSelector } from 'react-redux';
 import { selectPlayer } from 'store/slices/playerSlice';
 

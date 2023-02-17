@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react'
 import { IArtist } from 'types/model.type';
-import { shortNumber } from '../../utils/function';
+import { shortNumber } from 'utils/function';
 
 export interface IArtistCardProps {
   item: IArtist

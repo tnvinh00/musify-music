@@ -6,14 +6,14 @@ import { REST_URL } from 'constants/REST_URL'
 import { ResponseDataType } from 'types/api.type'
 import { getSectionByType } from 'utils/function'
 import { IAlbum, IArtist, IBanner, ISection, ISong } from 'types/model.type';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react';
 import { setMusicData } from 'store/slices/musicSlice'
 import AlbumCard from 'components/Cards/AlbumCard'
 import ArtistCard from 'components/Cards/ArtistCard'
 import { Tabs } from 'flowbite-react'
 import SongCard from 'components/Cards/SongCard'
-import { setPlayList, setLoading } from 'store/slices/playerSlice'
+import { setPlayList, setLoading, selectPlayer } from 'store/slices/playerSlice'
 
 export interface IHomePageProps {
   album: ISong[];
@@ -46,6 +46,8 @@ const HomePage = (props: IHomePageProps) => {
     trendingArtists,
   } = props;
 
+  const { playing, currentSong } = useSelector(selectPlayer);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -67,7 +69,7 @@ const HomePage = (props: IHomePageProps) => {
   return (
     <>
       <AppHeader
-        title="Musify App"
+        title={playing ? `${currentSong?.title} - ${currentSong?.artistsNames}` : ''}
       />
 
       <h2 className='mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>

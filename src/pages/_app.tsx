@@ -2,7 +2,7 @@ import 'styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Inter, Roboto } from '@next/font/google'
 import { Provider } from 'react-redux';
-import { wrapper } from '../store/store';
+import { wrapper } from 'store/store';
 import NavBar from 'components/NavBar/NavBar';
 import LayoutContainer from 'components/LayoutContainer/LayoutContainer';
 import { Flowbite } from 'flowbite-react';
