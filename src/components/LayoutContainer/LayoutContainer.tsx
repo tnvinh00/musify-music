@@ -7,7 +7,7 @@ export type LayoutContainerProps = {
 const LayoutContainer = (props: LayoutContainerProps) => {
   const { children } = props;
   return (
-    <div className='container'>
+    <div className='px-3 h-layout overflow-y-overlay main-layout'>
       {children}
     </div>
   )

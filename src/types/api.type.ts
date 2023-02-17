@@ -1,4 +1,4 @@
-import { IArtist, IAlbum, IGenre, ISong } from "./model.type";
+import { IArtist, IAlbum, IGenre, ISong, ISection } from './model.type';
 
 export type ApiResponseType = {
   data: ResponseDataType;
@@ -27,4 +27,5 @@ export type ResponseDataType = {
   aliasTitle: string;
   link: string;
   like: number;
+  items: ISection[];
 }

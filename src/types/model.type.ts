@@ -6,9 +6,21 @@ export interface IGenre {
   title: string;
 }
 
+export type IBanner = {
+  type: number;
+  link: string;
+  banner: string;
+  cover: string;
+  target: string;
+  title: string;
+  description: string;
+  ispr: number;
+  encodeId: string;
+}
+
 export interface IArtist {
   alias: string;
-  cover: string;
+  cover?: string;
   id: string;
   isOA: boolean;
   isOABrand: boolean;
@@ -18,19 +30,19 @@ export interface IArtist {
   spotlight: boolean;
   thumbnail: string;
   thumbnailM: string;
-  totalFollow: number;
+  totalFollow?: number;
 }
 
 export interface ISong {
-  album: IAlbum;
+  album?: IAlbum;
   alias: string;
   allowAudioAds: boolean;
-  artists: IArtist[];
+  artists?: IArtist[];
   artistsNames: string;
   duration: number;
   encodeId: string;
-  genreIds: string[];
-  hasLyric: string;
+  genreIds?: string[];
+  hasLyric?: boolean;
   indicators: any[];
   isIndie: boolean;
   isOffical: boolean;
@@ -45,6 +57,7 @@ export interface ISong {
   title: string;
   username: string;
   zingChoice: boolean;
+  downloadPrivileges?: number[];
 }
 
 export interface IAlbum {
@@ -61,4 +74,20 @@ export interface IAlbum {
   sortDescription: string;
   thumbnail: string;
   title: string;
+}
+
+export type SectionType = 'banner' | 'adBanner' | 'recentPlaylist' | 'new-release' | 'playlist' | 'playlist' | 'livestream' | 'playlist' | 'RTChart' | 'weekChart' | 'artistSpotlight' | 'playlist' | 'adBanner' | 'newReleaseChart' | 'playlist';
+
+export type SectionId = 'hSlider' | 'hRecent' | 'hAutoTheme1' | 'hArtistTheme' | 'hLiveRadio' | 'hAutoTheme2' | 'hZC' | 'h100' | 'hNewrelease' | 'hAlbum';
+
+export type ISection = {
+  link?: string;
+  sectionId: string;
+  title: string;
+  sectionType: SectionType;
+  viewType: "slider" | string;
+  pageType: string;
+  adId: string;
+  itemType: string;
+  items: IAlbum[] | IArtist[] | ISong[];
 }

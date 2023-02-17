@@ -1,66 +1,59 @@
-import { Navbar, Button } from 'flowbite-react'
+import { Navbar, Button, TextInput, DarkThemeToggle, Flowbite } from 'flowbite-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import SearchIcon from 'components/Icons/SearchIcon'
+import AppModal from 'components/Modal/Modal'
+import LoginForm from 'components/Forms/LoginForm/LoginForm'
 
 const NavBar = () => {
 
-  const menuItems = [
-    {
-      label: 'Home',
-      href: '/',
-    },
-    {
-      label: 'About',
-      href: '/about',
-    },
-    {
-      label: 'Contact',
-      href: '/contact',
-    },
-    {
-      label: 'Pricing',
-      href: '/pricing',
-    }
-  ];
+  const [showModal, setShowModal] = React.useState(false)
 
   return (
     <Navbar
       fluid={true}
       rounded={true}
+      className="w-full bg-orange-100 shadow-md z-10"
     >
-      <Navbar.Brand href="https://flowbite.com/">
+      <Link href='/' className='flex'>
         <Image
-          src="https://flowbite.com/docs/images/logo.svg"
-          className="mr-3 h-6 sm:h-9"
+          src="/images/logo-musify.jpg"
+          className="mr-3 rounded-md"
           alt="Flowbite Logo"
-          width={100}
-          height={100}
+          width={54}
+          height={54}
         />
+
         <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-          Flowbite
+          Musify
         </span>
-      </Navbar.Brand>
+      </Link>
       <div className="flex md:order-2">
         <Link href='/register'>
-          <Button className='mr-2 w-24' outline>
+          <Button className='mr-2 w-24' outline pill>
             Sign Up
           </Button>
         </Link>
-        <Link href="/login">
-          <Button className='w-24'>
-            Login
-          </Button>
-        </Link>
+        <Button className='mr-2 w-24' pill onClick={() => setShowModal(true)}>
+          Login
+        </Button>
+        <DarkThemeToggle />
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        {menuItems.map((item, index) => (
-          <Link href={item.href} key={index}>
-            {item.label}
-          </Link>
-        ))}
+        <TextInput
+          id="input-success"
+          placeholder="Tìm kiếm bài hát, nghệ sĩ, album..."
+          required={true}
+          icon={SearchIcon}
+          className="text-center w-96 lg:w-[40rem]"
+          color="success"
+        />
       </Navbar.Collapse>
+      {/* <AppModal show={showModal} onClose={() => setShowModal(false)}>
+          <LoginForm />
+        </AppModal> */}
     </Navbar>
   )
 }
