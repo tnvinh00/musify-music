@@ -11,6 +11,7 @@ export interface PlayerState {
   currentIndex: number;
   currentSong?: ISong;
   playList: ISong[];
+  loading: boolean;
 }
 
 const initialState: PlayerState = {
@@ -222,6 +223,7 @@ const initialState: PlayerState = {
       allowAudioAds: true,
     },
   ],
+  loading: false,
 }
 
 export const playerSlice = createSlice({
@@ -254,9 +256,17 @@ export const playerSlice = createSlice({
     },
     setCurrentSongIndex: (state, action) => {
       state.currentIndex = action.payload;
+      state.currentSong = state.playList[action.payload] || state.playList[0];
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
     setPlayList: (state, action) => {
-      state.playList = action.payload;
+      state.playList = action.payload.playList;
+      state.currentIndex = action.payload.index ? action.payload.index : 0;
+      state.playing = action.payload.play;
+      state.loading = false;
+      state.currentSong = state.playList[state.currentIndex];
     },
     nextSong: (state) => {
       if (state.shuffle) {
@@ -281,7 +291,7 @@ export const playerSlice = createSlice({
   }
 })
 
-export const { setVolume, setMuted, setShuffle, setPlaying, setRepeat, setCurrentSong, setCurrentPlayList, setCurrentTime, nextSong, prevSong, setPlayList } = playerSlice.actions;
+export const { setVolume, setMuted, setShuffle, setPlaying, setRepeat, setLoading, setCurrentSong, setCurrentSongIndex, setCurrentPlayList, setCurrentTime, nextSong, prevSong, setPlayList } = playerSlice.actions;
 
 export const selectPlayer = (state: { player: PlayerState }) => state.player;
 

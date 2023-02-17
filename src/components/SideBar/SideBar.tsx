@@ -65,9 +65,9 @@ const SideBar = () => {
     ]
   ]
   return (
-    <div className="w-fit h-layout bg-slate-400 dark:bg-gray-800">
+    <div className="w-fit hidden sidebar md:block h-layout bg-slate-400 dark:bg-gray-800">
       <Sidebar aria-label="Sidebar with multi-level dropdown example">
-        <Sidebar.Items>
+        <Sidebar.Items className='overflow-y-overlay'>
           {menuItems.map((itemGroup, index) => (
             <Sidebar.ItemGroup key={index}>
               {itemGroup.map((item, index) => (
@@ -82,6 +82,17 @@ const SideBar = () => {
               ))}
             </Sidebar.ItemGroup>
           ))}
+          <div id="dropdown-cta" className="p-4 mt-6 rounded-lg bg-blue-50 dark:bg-blue-900" role="alert">
+            <div className="flex items-center mb-3">
+              <span className="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">Beta</span>
+            </div>
+            <p className="mb-3 text-sm text-blue-800 dark:text-blue-400">
+              Nghe nhạc không quảng cáo cùng kho nhạc VIP
+            </p>
+            <a className="text-sm font-bold text-blue-800 underline hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300" href="#">
+              Nâng cấp VIP ngay
+            </a>
+          </div>
         </Sidebar.Items>
       </Sidebar>
     </div>

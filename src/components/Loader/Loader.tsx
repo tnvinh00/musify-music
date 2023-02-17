@@ -1,14 +1,15 @@
 import { Spinner } from 'flowbite-react'
 import React from 'react'
 
-const Loader = () => {
+const Loader = (props: { loading: boolean }) => {
+  const { loading } = props;
   return (
-    <div className='absolute top-0 left-0 h-screen w-screen flex justify-center items-center'>
+    loading ? <div className='absolute top-0 z-50 bg-slate-50 bg-opacity-50 left-0 h-screen w-screen flex justify-center items-center'>
       <Spinner
-        aria-label="Extra large spinner example"
         size="xl"
       />
-    </div>
+    </div >
+      : null
   )
 }
 

@@ -30,11 +30,11 @@ const NavBar = () => {
         </span>
       </Link>
       <div className="flex md:order-2">
-        <Link href='/register'>
+        {/* <Link href='/register'>
           <Button className='mr-2 w-24' outline pill>
             Sign Up
           </Button>
-        </Link>
+        </Link> */}
         <Button className='mr-2 w-24' pill onClick={() => setShowModal(true)}>
           Login
         </Button>
@@ -47,7 +47,7 @@ const NavBar = () => {
           placeholder="Tìm kiếm bài hát, nghệ sĩ, album..."
           required={true}
           icon={SearchIcon}
-          className="text-center w-96 lg:w-[40rem]"
+          className="text-center w-auto md:w-80 lg:w-[40rem]"
           color="success"
         />
       </Navbar.Collapse>

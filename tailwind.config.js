@@ -9,13 +9,16 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'sans-serif'],
+        sans: ['var(--font-family)', 'sans-serif'],
       },
       backgroundColor: {
         layout: '#172a46',
         main: '#061641',
       },
       height: {
+        'layout': 'calc(100vh - 8rem - 54px)',
+      },
+      maxHeight: {
         'layout': 'calc(100vh - 8rem - 54px)',
       },
       backgroundImage: {

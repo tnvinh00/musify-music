@@ -1,6 +1,6 @@
 import 'styles/globals.css'
 import type { AppProps } from 'next/app'
-import { Inter } from '@next/font/google'
+import { Inter, Roboto } from '@next/font/google'
 import { Provider } from 'react-redux';
 import { wrapper } from '../store/store';
 import NavBar from 'components/NavBar/NavBar';
@@ -11,7 +11,7 @@ import PlayerControl from 'components/PlayerControl/PlayerControl';
 
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-family',
 })
 
 export default function App({ Component, ...rest }: AppProps) {

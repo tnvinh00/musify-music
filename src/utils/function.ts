@@ -18,3 +18,16 @@ export const convertDuration = (duration: number) => {
 export const getAudioUrl = (id: string = "") => {
   return `${process.env.NEXT_PUBLIC_API_AUDIO + id}/320`;
 }
+
+export const shortNumber = (number: number) => {
+  if (number < 1000) {
+    return number;
+  }
+  if (number < 1000000) {
+    return `${Math.floor(number / 1000)}K`;
+  }
+  if (number < 1000000000) {
+    return `${Math.floor(number / 1000000)}M`;
+  }
+  return `${Math.floor(number / 1000000000)}B`;
+}

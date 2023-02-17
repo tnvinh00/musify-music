@@ -6,21 +6,21 @@ body {
   font-family: var(--font-family), sans-serif;
 }
 
-.main-layout::-webkit-scrollbar {
+.sidebar::-webkit-scrollbar, .side-sheet::-webkit-scrollbar, .main-layout::-webkit-scrollbar {
   width: 4px;
 }
 
-.main-layout::-webkit-scrollbar-track {
+.sidebar::-webkit-scrollbar-track, .side-sheet::-webkit-scrollbar-track, .main-layout::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.main-layout::-webkit-scrollbar-thumb {
+.sidebar::-webkit-scrollbar-thumb, .side-sheet::-webkit-scrollbar-thumb, .main-layout::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 4px;
 }
 
 .overflow-y-overlay {
-  overflow-y: overlay;
+  overflow-y: overlay!important;
 }
 
 input[type="range"]::-webkit-slider-thumb {

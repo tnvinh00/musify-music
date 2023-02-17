@@ -1,5 +1,5 @@
 import RangeSlide from 'components/Forms/RangeSlider/RangeSlider'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   IoPlaySkipForward,
   IoPlaySkipBack,
@@ -7,19 +7,41 @@ import {
   IoShuffle,
   IoHeartOutline,
 } from 'react-icons/io5'
-import { BsFillVolumeMuteFill, BsFillVolumeUpFill, BsPauseCircle, BsPlayCircle, BsMusicNoteList } from 'react-icons/bs'
+import { BsFillVolumeMuteFill, BsFillVolumeUpFill, BsPauseCircle, BsPlayCircle, BsMusicNoteList, BsX } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
 import { selectPlayer } from 'store/slices/playerSlice'
 import Image from 'next/image'
-import { setMuted, setRepeat, setVolume, setPlaying, setShuffle, setCurrentTime, nextSong, prevSong } from 'store/slices/playerSlice'
+import { setMuted, setRepeat, setVolume, setPlaying, setShuffle, setCurrentTime, nextSong, prevSong, setCurrentSongIndex } from 'store/slices/playerSlice'
 import { useDispatch } from 'react-redux'
 import { convertDuration, getAudioUrl } from 'utils/function'
+import SongCard from 'components/Cards/SongCard'
 
 const PlayerControl = () => {
   const dispatch = useDispatch();
-  const { muted, playing, repeat, currentTime, volume, shuffle, currentSong } = useSelector(selectPlayer)
+  const { muted, playing, repeat, currentTime, currentIndex, volume, playList, shuffle, currentSong } = useSelector(selectPlayer)
 
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const sideSheetRef = useRef<HTMLDivElement>(null);
+
+  const [showPlaylist, setShowPlaylist] = useState(false);
+
+  // click outside to close playlist
+  const handleClickOutside = (event: any) => {
+    if (sideSheetRef.current && !sideSheetRef.current.contains(event.target)) {
+      setShowPlaylist(false);
+    }
+  }
+
+  useEffect(() => {
+    if (showPlaylist)
+      document.addEventListener('click', handleClickOutside);
+    else
+      document.removeEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showPlaylist]);
 
   const handleClickPlay = () => {
     if (audioRef.current) {
@@ -67,8 +89,8 @@ const PlayerControl = () => {
   }
 
   return (
-    <div className='h-[7rem] w-full bg-gray-100 dark:bg-main shadow-md'>
-      <div className='flex justify-between items-center h-full px-4'>
+    <div className='h-[5rem] md:h-[7rem] w-full bg-gray-100 dark:bg-main shadow-md'>
+      <div className='flex justify-between items-center h-full px-4 relative'>
         <div className='flex items-center basis-1/2 md:basis-1/3'>
           <Image
             src={currentSong?.thumbnailM || ''}
@@ -76,11 +98,21 @@ const PlayerControl = () => {
             height={60}
             width={60}
             className='w-16 h-16 bg-gray-300 rounded-md'
+            onClick={() => setShowPlaylist(!showPlaylist)}
           />
           <div className='ml-4 overflow-hidden'>
             <p className='truncate text-gray-600 dark:text-gray-300 mb-1'>{currentSong?.title}</p>
             <p className='truncate text-gray-400 dark:text-gray-400 text-sm'>{currentSong?.artistsNames}</p>
           </div>
+          {playing && (
+            <Image
+              src="https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/icons/icon-playing.gif"
+              alt="playing"
+              className='h-6 w-6 ml-2 md:ml-6'
+              width={50}
+              height={50}
+            />
+          )}
           <IoHeartOutline className='hidden md:block ml-4 mr-4 text-gray-800 dark:text-white' size={32} />
         </div>
 
@@ -94,7 +126,7 @@ const PlayerControl = () => {
             </div>
 
             <div
-              className="hidden md:flex items-center justify-center text-gray-800 dark:text-white rounded-full cursor-pointer w-8 h-8 hover:bg-gray-300 dark:hover:bg-gray-500"
+              className="mr-4 md:mr-0 flex items-center justify-center text-gray-800 dark:text-white rounded-full cursor-pointer w-8 h-8 hover:bg-gray-300 dark:hover:bg-gray-500"
               onClick={() => dispatch(prevSong())}
             >
               <IoPlaySkipBack size={20} />
@@ -142,7 +174,8 @@ const PlayerControl = () => {
             src={getAudioUrl(currentSong?.encodeId)}
             onTimeUpdate={(e) => dispatch(setCurrentTime((e.target as HTMLAudioElement).currentTime))}
             onEnded={handleEnded}
-            autoPlay={playing} />
+            autoPlay={playing}
+          />
         </div>
 
         <div className='hidden md:flex items-center justify-end md:basis-1/3'>
@@ -156,9 +189,34 @@ const PlayerControl = () => {
               onChange={handleChangeVolume}
             />
           </div>
-          <button className='rounded-md h-10 w-10 bg-slate-300 dark:bg-slate-500 text-gray-500 dark:text-gray-100 hover:bg-slate-400 hover:dark:bg-slate-600 hover:text-gray-200 hover:dark:text-gray-200 ml-3'>
-            <BsMusicNoteList className='mx-auto' size={20} />
-          </button>
+          <div className='md:relative' ref={sideSheetRef} >
+            <button
+              onClick={() => setShowPlaylist(!showPlaylist)}
+              className='rounded-md h-10 w-10 bg-slate-300 dark:bg-slate-500 text-gray-500 dark:text-gray-100 hover:bg-slate-400 hover:dark:bg-slate-600 hover:text-gray-200 hover:dark:text-gray-200 ml-3'
+            >
+              <BsMusicNoteList className='mx-auto' size={20} />
+            </button>
+            {showPlaylist &&
+              <div className="absolute right-0 bottom-20 z-20 side-sheet overflow-y-scroll w-96 max-h-layout p-4 bg-gray-100 dark:bg-main rounded-md shadow-2xl">
+                <div className="flex justify-between items-center pl-2 pr-4 py-2">
+                  <p className="text-gray-600 text-xl font-semibold dark:text-gray-300">
+                    Đang phát ({playList.length})
+                  </p>
+                  <button className="text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 rounded-full hover:scale-120" onClick={() => setShowPlaylist(false)}>
+                    <BsX size={30} />
+                  </button>
+                </div>
+                {playList.map((song, index) => (
+                  <SongCard
+                    key={song.encodeId}
+                    playing={currentIndex === index}
+                    item={song}
+                    onClick={() => dispatch(setCurrentSongIndex(index))}
+                  />
+                ))}
+              </div>
+            }
+          </div>
         </div>
       </div>
     </div>

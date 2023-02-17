@@ -24,6 +24,7 @@ export interface IArtist {
   id: string;
   isOA: boolean;
   isOABrand: boolean;
+  encodeId?: string;
   link: string;
   name: string;
   playlistId: string;
