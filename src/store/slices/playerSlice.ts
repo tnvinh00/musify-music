@@ -231,6 +231,11 @@ export const playerSlice = createSlice({
   initialState,
   reducers: {
     setVolume: (state, action) => {
+      if (action.payload == 0) {
+        state.muted = true;
+      } else {
+        state.muted = false;
+      }
       state.volume = action.payload;
     },
     setMuted: (state, action) => {
