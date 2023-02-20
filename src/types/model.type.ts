@@ -76,7 +76,8 @@ export interface ISong {
   downloadPrivileges?: number[];
   song?: {
     items: ISong[];
-  }
+  },
+  sortDescription?: string;
 }
 
 export interface IAlbum {
@@ -95,7 +96,7 @@ export interface IAlbum {
   title: string;
 }
 
-export type SectionType = 'banner' | 'adBanner' | 'song' | 'artist' | 'recentPlaylist' | 'new-release' | 'playlist' | 'playlist' | 'livestream' | 'playlist' | 'RTChart' | 'weekChart' | 'artistSpotlight' | 'playlist' | 'adBanner' | 'newReleaseChart' | 'playlist';
+export type SectionType = 'banner' | 'adBanner' | 'song' | 'artist' | 'video' | 'recentPlaylist' | 'new-release' | 'playlist' | 'playlist' | 'livestream' | 'playlist' | 'RTChart' | 'weekChart' | 'artistSpotlight' | 'playlist' | 'adBanner' | 'newReleaseChart' | 'playlist';
 
 export type SectionId = 'hSlider' | 'hRecent' | 'hAutoTheme1' | 'hArtistTheme' | 'hLiveRadio' | 'hAutoTheme2' | 'hZC' | 'h100' | 'hNewrelease' | 'hAlbum';
 

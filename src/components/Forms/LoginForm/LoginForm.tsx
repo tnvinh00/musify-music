@@ -4,7 +4,7 @@ import { Label, TextInput, Checkbox, Button } from 'flowbite-react'
 const LoginForm = () => {
   return (
     <form className="flex flex-col gap-4 w-96 mx-auto">
-      <h1 className='text-center font-medium text-2xl'>Login</h1>
+      <h1 className='text-center font-medium text-gray-700 dark:text-gray-200 text-3xl'>Login</h1>
       <div>
         <div className="mb-2 block">
           <Label

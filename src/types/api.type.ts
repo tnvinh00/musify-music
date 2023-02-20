@@ -29,3 +29,21 @@ export type ResponseDataType = {
   like: number;
   items: ISection[];
 }
+
+export type ApiSuggestKeywordType = {
+  items: {
+    keyword: {
+      type: number;
+      keyword: string;
+      suggestType: number;
+    }[];
+  } | {
+    suggestions: {
+      type: number;
+      thumb: string;
+      title: string;
+      artists: IArtist[];
+      duration: number;
+    }
+  }[]
+}

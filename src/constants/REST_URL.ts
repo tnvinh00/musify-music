@@ -5,4 +5,5 @@ export const REST_URL = {
   PLAYLIST: '/playlist',
   ALBUM: '/album',
   ARTIST: '/artist',
+  SUGGEST: '/suggestionkeyword',
 }

@@ -11,14 +11,13 @@ import { convertToDateTime, shortNumber } from 'utils/function';
 import SongRow from 'components/Cards/SongRow';
 import { useDispatch } from 'react-redux';
 import { setPlayList } from 'store/slices/playerSlice';
+import Link from 'next/link';
 
 export type AlbumPageProps = {
   albumData: ISong;
 }
 
 const AlbumPage = ({ albumData }: AlbumPageProps) => {
-  console.log("~ ~ AlbumPage ~ albumData", albumData);
-
   const dispatch = useDispatch();
 
   const handleClickSong = (index: number) => {
@@ -32,11 +31,12 @@ const AlbumPage = ({ albumData }: AlbumPageProps) => {
   return (
     <>
       <AppHeader
-        title={albumData?.title}
+        title={albumData?.title + " - " + albumData?.artistsNames}
         description={albumData?.description}
+        image={albumData?.thumbnailM}
       />
       <div className="flex flex-wrap items-start">
-        <div className="flex flex-col sticky justify-center px-6 w-full md:w-1/3">
+        <div className="flex flex-col sticky justify-center px-6 w-full lg:w-1/3">
           <Image
             src={albumData?.thumbnailM}
             alt={albumData?.title}
@@ -44,11 +44,15 @@ const AlbumPage = ({ albumData }: AlbumPageProps) => {
             height={500}
             className="object-cover mb-4 shadow-sm rounded-lg hover:opacity-90 transition duration-150 ease-in-out hover:shadow-lg hover:scale-105"
           />
-          <p className='text-center text-gray-600 dark:text-gray-200 font-semibold text-xl my-3'>
+          <p className='text-center text-gray-600 dark:text-gray-200 font-semibold text-3xl my-3'>
             {albumData?.title}
           </p>
           <p className='text-center text-gray-600 dark:text-gray-400 hover:underline text-lg mb-2'>
-            {albumData?.artistsNames}
+            {albumData?.artists?.map((artist, index: number) => (
+              <Link href={`/artist/${artist.alias}`} key={artist.alias} className='hover:underline'>
+                {index !== 0 && ", "} {artist.name}
+              </Link>
+            ))}
           </p>
           <p className='text-center text-gray-600 dark:text-gray-400 text-base mb-2'>
             {shortNumber(albumData?.like || 0)} lượt thích
@@ -58,8 +62,8 @@ const AlbumPage = ({ albumData }: AlbumPageProps) => {
           </p>
 
         </div>
-        <div className="flex flex-wrap w-full md:w-2/3">
-          <p className='text-gray-600 dark:text-gray-400 text-lg ml-3 mb-3'>
+        <div className="flex flex-wrap w-full lg:w-2/3">
+          <p className='text-gray-600 dark:text-gray-400 text-lg ml-3 my-3'>
             Lời tựa: <b>{albumData?.description}</b>
           </p>
           <div className="flex flex-wrap w-full pr-4 justify-between">

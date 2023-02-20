@@ -5,13 +5,15 @@ import { Button } from 'flowbite-react';
 import { GetServerSideProps } from 'next';
 import React, { useEffect, useState } from 'react'
 import { ResponseDataType } from 'types/api.type';
-import { IArtist } from 'types/model.type';
+import { IArtist, ISong } from 'types/model.type';
 import { shortNumber } from 'utils/function';
 import { SlUserFollow } from 'react-icons/sl';
 import Image from 'next/image';
 import ArtistSection from 'components/Sections/ArtistSection';
 import Loader from 'components/Loader/Loader';
 import { useRouter } from 'next/router';
+import { setPlayList } from 'store/slices/playerSlice';
+import { useDispatch } from 'react-redux';
 
 export type ArtistPageProps = {
   data: IArtist;
@@ -19,30 +21,19 @@ export type ArtistPageProps = {
 
 const ArtistPage = (props: ArtistPageProps) => {
   const { data } = props;
+  const dispatch = useDispatch();
 
-  const { id } = useRouter().query;
-  console.log("~ ~ ArtistPage ~ data", data);
-
-  const [loading, setLoading] = useState(true);
-
-  // set loading when id change
-  useEffect(() => {
-    setLoading(true);
-  }, [id]);
-
-  useEffect(() => {
-    if (data) {
-      setLoading(false);
-    }
-  }, [data]);
-
+  const saveToPlaylist = (playList: ISong[], index: number, play = true) => {
+    dispatch(setPlayList({ playList, index, play }));
+  }
+  
   return (
     <>
       <AppHeader
         title={data?.name}
         description={data?.sortBiography}
+        image={data?.thumbnailM}
       />
-      <Loader loading={loading} />
       <div className='relative'>
         <div className='absolute inset-x-0 top-0 h-52 md:h-80 lg:h-96'>
           {/* image cover with bg linear gradient */}

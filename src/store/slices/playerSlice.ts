@@ -273,7 +273,7 @@ export const playerSlice = createSlice({
     setPlayList: (state, action) => {
       state.playList = action.payload.playList;
       state.currentIndex = action.payload.index ? action.payload.index : 0;
-      state.playing = action.payload.play;
+      state.playing = state.playing ? state.playing : action.payload.play;
       state.loading = false;
       state.currentSong = state.playList[state.currentIndex];
       localStorage.setItem("playList", JSON.stringify(state.playList));

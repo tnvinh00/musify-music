@@ -18,7 +18,7 @@ const SongRow = (props: ISongRowProps) => {
       className='border-b border-gray-200 dark:border-gray-700 rounded-md flex justify-between bg-transparent items-center w-full hover:bg-gray-200 dark:hover:bg-gray-700 hover:shadow-md p-3 cursor-pointer'
       onClick={onClick}
     >
-      <div className="flex w-1/2 items-center">
+      <div className="flex w-3/5 md:w-1/2 items-center">
         {isHeader ?
           <>
             <div className="flex">
@@ -52,7 +52,7 @@ const SongRow = (props: ISongRowProps) => {
             </>
           )}
       </div>
-      <div className="flex w-1/3">
+      <div className="md:flex w-1/3 hidden">
         {isHeader ? (
           <span className='text-sm uppercase text-gray-500 dark:text-gray-200 font-medium'>Album</span>
         ) : (
@@ -63,7 +63,7 @@ const SongRow = (props: ISongRowProps) => {
       </div>
       <div className="flex">
         {isHeader ? (
-          <span className='text-sm uppercase text-gray-500 dark:text-gray-200 font-medium'>Thời gian</span>
+          <span className='text-sm uppercase text-gray-500 dark:text-gray-200 font-medium'>--:--</span>
         ) : (
           <p className='text-gray-400 dark:text-gray-400 text-sm'>
             {convertDuration(item?.duration || 0)}

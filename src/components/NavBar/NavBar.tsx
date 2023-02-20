@@ -17,7 +17,7 @@ const NavBar = () => {
     <Navbar
       fluid={true}
       rounded={true}
-      className="w-full bg-orange-100 shadow-md z-10"
+      className="w-full bg-orange-100 shadow-md z-10 my-auto"
     >
       <Link href='/' className='flex'>
         <Image
@@ -38,9 +38,11 @@ const NavBar = () => {
             Sign Up
           </Button>
         </Link> */}
-        <Button className='mr-2 w-24' pill onClick={() => setShowModal(true)}>
-          Login
-        </Button>
+        <Link href='/login'>
+          <Button className='mr-2 w-24' pill>
+            Login
+          </Button>
+        </Link>
         <DarkThemeToggle />
         <Navbar.Toggle />
       </div>

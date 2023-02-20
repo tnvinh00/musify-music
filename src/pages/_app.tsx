@@ -8,6 +8,9 @@ import LayoutContainer from 'components/LayoutContainer/LayoutContainer';
 import { Flowbite } from 'flowbite-react';
 import SideBar from 'components/SideBar/SideBar';
 import PlayerControl from 'components/PlayerControl/PlayerControl';
+import Loader from 'components/Loader/Loader';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,6 +20,29 @@ const inter = Inter({
 export default function App({ Component, ...rest }: AppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
+
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleStart = () => {
+      setLoading(true);
+    };
+    const handleComplete = () => {
+      setLoading(false);
+    };
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
+    };
+  }, []);
+
   return (
     <Provider store={store}>
       <style jsx global>
@@ -32,7 +58,9 @@ export default function App({ Component, ...rest }: AppProps) {
           <div className="flex w-full">
             <SideBar />
             <LayoutContainer>
-              <Component {...pageProps} />
+              {loading ? <Loader loading={loading} /> : (
+                <Component {...pageProps} />
+              )}
             </LayoutContainer>
           </div>
           <PlayerControl />

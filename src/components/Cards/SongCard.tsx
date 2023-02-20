@@ -4,6 +4,7 @@ import { ISong } from 'types/model.type';
 import { convertDuration } from 'utils/function';
 import { HiOutlineMusicNote } from 'react-icons/hi';
 import { Badge } from 'flowbite-react';
+import Link from 'next/link';
 
 export interface ISongCardProps {
   item: ISong;

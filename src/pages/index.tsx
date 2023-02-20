@@ -1,4 +1,3 @@
-import styles from 'styles/Home.module.css'
 import AppHeader from 'components/AppHeader/AppHeader'
 import { GetServerSideProps } from 'next'
 import axiosClient from 'api/axios'
@@ -56,13 +55,6 @@ const HomePage = (props: IHomePageProps) => {
     saveToPlaylist(newReleases.vPop, 0, false);
   }, [props]);
 
-  const handleClickAlbum = async (item: ISong | IArtist) => {
-    dispatch(setLoading(true));
-    const { data } = await axiosClient.get<ResponseDataType>(`${REST_URL.PLAYLIST}/${item.encodeId}`);
-    const playList = data.song.items;
-    saveToPlaylist(playList, 0);
-  }
-
   const saveToPlaylist = (playList: ISong[], index: number, play = true) => {
     dispatch(setPlayList({ playList, index, play }));
   }
@@ -70,7 +62,10 @@ const HomePage = (props: IHomePageProps) => {
   return (
     <>
       <AppHeader
-        title={playing ? `${currentSong?.title} - ${currentSong?.artistsNames}` : ''}
+        title={playing ? `${currentSong?.title} - ${currentSong?.artistsNames}`
+          : 'Nghe nhạc ' + newMusicToday[0]?.title + ' - ' + newMusicToday[0]?.artists?.map((item) => item.name).join(', ')}
+        description={playing ? `${currentSong?.title} - ${currentSong?.artistsNames}`
+          : newMusicToday[0]?.sortDescription}
       />
 
       <h2 className='mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
@@ -127,12 +122,9 @@ const HomePage = (props: IHomePageProps) => {
       <div className="flex flex-wrap w-full">
         {newMusicToday.map((item, index) => (
           <div className="flex p-2 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5" key={index}>
-            <Link className='w-full' href={item.link.replace('.html', '')}>
-              <AlbumCard
-                item={item as any}
-              // onClick={() => handleClickAlbum(item)}
-              />
-            </Link>
+            <AlbumCard
+              item={item as any}
+            />
           </div>
         ))}
       </div>
@@ -143,13 +135,9 @@ const HomePage = (props: IHomePageProps) => {
       <div className="flex flex-wrap w-full">
         {top100.map((item, index) => (
           <div className="flex p-2 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5" key={index}>
-            <Link href={item.link.replace('.html', '')}>
-
-              <AlbumCard
-                item={item as any}
-              // onClick={() => handleClickAlbum(item)}
-              />
-            </Link>
+            <AlbumCard
+              item={item as any}
+            />
           </div>
         ))}
       </div>
@@ -160,12 +148,9 @@ const HomePage = (props: IHomePageProps) => {
       <div className="flex flex-wrap w-full">
         {playlist.map((item, index) => (
           <div className="flex p-2 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5" key={index}>
-            <Link href={item.link.replace('.html', '')}>
-              <AlbumCard
-                item={item as any}
-              // onClick={() => handleClickAlbum(item)}
-              />
-            </Link>
+            <AlbumCard
+              item={item as any}
+            />
           </div>
         ))}
       </div>
@@ -174,12 +159,9 @@ const HomePage = (props: IHomePageProps) => {
       <div className="flex flex-wrap w-full">
         {trendingArtists.map((item, index) => (
           <div className="flex p-2 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5" key={index}>
-            <Link href={item.link.replace('.html', '')}>
-              <AlbumCard
-                item={item as any}
-              // onClick={() => handleClickAlbum(item)}
-              />
-            </Link>
+            <AlbumCard
+              item={item as any}
+            />
           </div>
         ))}
       </div>
