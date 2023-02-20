@@ -14,6 +14,7 @@ import ArtistCard from 'components/Cards/ArtistCard'
 import { Tabs } from 'flowbite-react'
 import SongCard from 'components/Cards/SongCard'
 import { setPlayList, setLoading, selectPlayer } from 'store/slices/playerSlice'
+import Link from 'next/link'
 
 export interface IHomePageProps {
   album: ISong[];
@@ -126,10 +127,12 @@ const HomePage = (props: IHomePageProps) => {
       <div className="flex flex-wrap w-full">
         {newMusicToday.map((item, index) => (
           <div className="flex p-2 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5" key={index}>
-            <AlbumCard
-              item={item as any}
-              onClick={() => handleClickAlbum(item)}
-            />
+            <Link className='w-full' href={item.link.replace('.html', '')}>
+              <AlbumCard
+                item={item as any}
+              // onClick={() => handleClickAlbum(item)}
+              />
+            </Link>
           </div>
         ))}
       </div>
@@ -140,10 +143,13 @@ const HomePage = (props: IHomePageProps) => {
       <div className="flex flex-wrap w-full">
         {top100.map((item, index) => (
           <div className="flex p-2 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5" key={index}>
-            <AlbumCard
-              item={item as any}
-              onClick={() => handleClickAlbum(item)}
-            />
+            <Link href={item.link.replace('.html', '')}>
+
+              <AlbumCard
+                item={item as any}
+              // onClick={() => handleClickAlbum(item)}
+              />
+            </Link>
           </div>
         ))}
       </div>
@@ -154,10 +160,12 @@ const HomePage = (props: IHomePageProps) => {
       <div className="flex flex-wrap w-full">
         {playlist.map((item, index) => (
           <div className="flex p-2 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5" key={index}>
-            <AlbumCard
-              item={item as any}
-              onClick={() => handleClickAlbum(item)}
-            />
+            <Link href={item.link.replace('.html', '')}>
+              <AlbumCard
+                item={item as any}
+              // onClick={() => handleClickAlbum(item)}
+              />
+            </Link>
           </div>
         ))}
       </div>
@@ -166,10 +174,12 @@ const HomePage = (props: IHomePageProps) => {
       <div className="flex flex-wrap w-full">
         {trendingArtists.map((item, index) => (
           <div className="flex p-2 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5" key={index}>
-            <AlbumCard
-              item={item as any}
-              onClick={() => handleClickAlbum(item)}
-            />
+            <Link href={item.link.replace('.html', '')}>
+              <AlbumCard
+                item={item as any}
+              // onClick={() => handleClickAlbum(item)}
+              />
+            </Link>
           </div>
         ))}
       </div>
@@ -180,7 +190,9 @@ const HomePage = (props: IHomePageProps) => {
       <div className="flex flex-wrap w-full mt-4">
         {artistSpotlight.map((item, index) => (
           <div className="flex p-2 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5" key={index}>
-            <ArtistCard item={item as any} />
+            <ArtistCard
+              item={item as any}
+            />
           </div>
         ))}
       </div>

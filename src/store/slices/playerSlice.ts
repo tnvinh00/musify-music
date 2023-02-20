@@ -255,9 +255,9 @@ export const playerSlice = createSlice({
     },
     setCurrentSong: (state, action) => {
       state.currentSong = action.payload;
-    },
-    setCurrentPlayList: (state, action) => {
-      state.playList = action.payload;
+      if (action.payload.streamingStatus === 2) {
+        state.playing = false;
+      }
     },
     setCurrentTime: (state, action) => {
       state.currentTime = action.payload;
@@ -265,6 +265,7 @@ export const playerSlice = createSlice({
     setCurrentSongIndex: (state, action) => {
       state.currentIndex = action.payload;
       state.currentSong = state.playList[action.payload] || state.playList[0];
+      localStorage.setItem("currentIndex", JSON.stringify(state.currentIndex));
     },
     setLoading: (state, action) => {
       state.loading = action.payload;
@@ -275,6 +276,7 @@ export const playerSlice = createSlice({
       state.playing = action.payload.play;
       state.loading = false;
       state.currentSong = state.playList[state.currentIndex];
+      localStorage.setItem("playList", JSON.stringify(state.playList));
     },
     nextSong: (state) => {
       if (state.shuffle) {
@@ -288,6 +290,7 @@ export const playerSlice = createSlice({
         }
         state.currentSong = state.playList[state.currentIndex];
       }
+      localStorage.setItem("currentIndex", JSON.stringify(state.currentIndex));
     },
     prevSong: (state) => {
       state.currentIndex--;
@@ -295,11 +298,12 @@ export const playerSlice = createSlice({
         state.currentIndex = state.playList.length - 1;
       }
       state.currentSong = state.playList[state.currentIndex];
+      localStorage.setItem("currentIndex", JSON.stringify(state.currentIndex));
     }
   }
 })
 
-export const { setVolume, setMuted, setShuffle, setPlaying, setRepeat, setLoading, setCurrentSong, setCurrentSongIndex, setCurrentPlayList, setCurrentTime, nextSong, prevSong, setPlayList } = playerSlice.actions;
+export const { setVolume, setMuted, setShuffle, setPlaying, setRepeat, setLoading, setCurrentSong, setCurrentSongIndex, setCurrentTime, nextSong, prevSong, setPlayList } = playerSlice.actions;
 
 export const selectPlayer = (state: { player: PlayerState }) => state.player;
 

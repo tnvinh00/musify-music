@@ -20,32 +20,47 @@ export type IBanner = {
 
 export interface IArtist {
   alias: string;
+  biography?: string;
+  birthday?: string;
+  sortBiography?: string;
   cover?: string;
+  encodeId?: string;
+  hasOA?: boolean;
   id: string;
   isOA: boolean;
   isOABrand: boolean;
-  encodeId?: string;
   link: string;
   name: string;
+  national?: string;
+  oaid?: string;
+  sections: ISection[];
+  oalink?: string;
   playlistId: string;
+  realname?: string;
+  follow?: boolean;
   spotlight: boolean;
   thumbnail: string;
   thumbnailM: string;
   totalFollow?: number;
+  topAlbum?: IAlbum;
 }
 
 export interface ISong {
   album?: IAlbum;
   alias: string;
+  aliasTitle?: string;
   allowAudioAds: boolean;
   artists?: IArtist[];
   artistsNames: string;
+  description?: string;
   duration: number;
   encodeId: string;
   genreIds?: string[];
   hasLyric?: boolean;
   indicators: any[];
   isIndie: boolean;
+  like?: number;
+  contentLastUpdate?: number;
   isOffical: boolean;
   isPrivate: boolean;
   isWorldWide: boolean;
@@ -59,6 +74,9 @@ export interface ISong {
   username: string;
   zingChoice: boolean;
   downloadPrivileges?: number[];
+  song?: {
+    items: ISong[];
+  }
 }
 
 export interface IAlbum {
@@ -77,7 +95,7 @@ export interface IAlbum {
   title: string;
 }
 
-export type SectionType = 'banner' | 'adBanner' | 'recentPlaylist' | 'new-release' | 'playlist' | 'playlist' | 'livestream' | 'playlist' | 'RTChart' | 'weekChart' | 'artistSpotlight' | 'playlist' | 'adBanner' | 'newReleaseChart' | 'playlist';
+export type SectionType = 'banner' | 'adBanner' | 'song' | 'artist' | 'recentPlaylist' | 'new-release' | 'playlist' | 'playlist' | 'livestream' | 'playlist' | 'RTChart' | 'weekChart' | 'artistSpotlight' | 'playlist' | 'adBanner' | 'newReleaseChart' | 'playlist';
 
 export type SectionId = 'hSlider' | 'hRecent' | 'hAutoTheme1' | 'hArtistTheme' | 'hLiveRadio' | 'hAutoTheme2' | 'hZC' | 'h100' | 'hNewrelease' | 'hAlbum';
 
@@ -86,7 +104,7 @@ export type ISection = {
   sectionId: string;
   title: string;
   sectionType: SectionType;
-  viewType: "slider" | string;
+  viewType: "slider";
   pageType: string;
   adId: string;
   itemType: string;

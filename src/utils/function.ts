@@ -31,3 +31,8 @@ export const shortNumber = (number: number) => {
   }
   return `${Math.floor(number / 1000000000)}B`;
 }
+
+export const convertToDateTime = (timestamp: number) => {
+  const date = new Date(timestamp * 1000);
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+}

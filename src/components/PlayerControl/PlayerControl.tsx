@@ -9,18 +9,35 @@ import {
 } from 'react-icons/io5'
 import { BsFillVolumeMuteFill, BsFillVolumeUpFill, BsPauseCircle, BsPlayCircle, BsMusicNoteList, BsX } from 'react-icons/bs'
 import { useSelector } from 'react-redux'
-import { selectPlayer } from 'store/slices/playerSlice'
+import { selectPlayer, setPlayList } from 'store/slices/playerSlice';
 import Image from 'next/image'
 import { setMuted, setRepeat, setVolume, setPlaying, setShuffle, setCurrentTime, nextSong, prevSong, setCurrentSongIndex } from 'store/slices/playerSlice'
 import { useDispatch } from 'react-redux'
 import { convertDuration, getAudioUrl } from 'utils/function'
 import SongCard from 'components/Cards/SongCard'
+import { Badge } from 'flowbite-react'
+import { GiMusicalNotes } from 'react-icons/gi'
+import Link from 'next/link'
+import { IArtist } from 'types/model.type'
 
 const PlayerControl = () => {
   const dispatch = useDispatch();
-  const { muted, playing, repeat, currentTime, currentIndex, volume, playList, shuffle, currentSong } = useSelector(selectPlayer)
+  const playerState = useSelector(selectPlayer);
+  const { muted, playing, repeat, currentTime, currentIndex, volume, playList, shuffle, currentSong } = playerState;
 
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const playListStorage = (typeof window !== "undefined") ? JSON.parse(localStorage.getItem('playList') || '{}') : null;
+    const indexStorage = (typeof window !== "undefined") ? JSON.parse(localStorage.getItem('currentIndex') || '{}') : null;
+
+    if (playListStorage) {
+      dispatch(setPlayList({
+        playList: playListStorage,
+        index: indexStorage
+      }));
+    }
+  }, []);
 
   const sideSheetRef = useRef<HTMLDivElement>(null);
 
@@ -32,6 +49,14 @@ const PlayerControl = () => {
       setShowPlaylist(false);
     }
   }
+
+  useEffect(() => {
+    if (currentSong && currentSong?.streamingStatus === 2) {
+      setTimeout(() => {
+        dispatch(nextSong());
+      }, 5000);
+    }
+  }, [currentSong]);
 
   useEffect(() => {
     if (showPlaylist)
@@ -102,16 +127,24 @@ const PlayerControl = () => {
           />
           <div className='ml-4 overflow-hidden'>
             <p className='truncate text-gray-600 dark:text-gray-300 mb-1'>{currentSong?.title}</p>
-            <p className='truncate text-gray-400 dark:text-gray-400 text-sm'>{currentSong?.artistsNames}</p>
+            <p className='truncate text-gray-400 dark:text-gray-400 text-sm'>
+              {currentSong?.artists?.map((artist: IArtist, index: number) => (
+                <Link href={`/artist/${artist.alias}`} key={artist.alias} className='hover:underline'>
+                  {index !== 0 && ", "} {artist.name}
+                </Link>
+              ))}
+            </p>
           </div>
-          {playing && (
+          {playing && currentSong?.streamingStatus !== 2 ? (
             <Image
               src="https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/icons/icon-playing.gif"
               alt="playing"
-              className='h-6 w-6 ml-2 md:ml-6'
+              className='h-6 w-6 ml-2 md:ml-6 hidden md:block'
               width={50}
               height={50}
             />
+          ) : (
+            <GiMusicalNotes size={26} className='ml-5 text-gray-800 dark:text-white hidden md:block'/>
           )}
           <IoHeartOutline className='hidden md:block ml-4 mr-4 text-gray-800 dark:text-white' size={32} />
         </div>
@@ -136,7 +169,7 @@ const PlayerControl = () => {
               className="mr-4 md:mr-0 flex items-center justify-center text-gray-800 dark:text-white hover:text-blue-500 dark:hover:text-blue-500 rounded-full cursor-pointer"
               onClick={handleClickPlay}
             >
-              {!playing ? <BsPlayCircle size={40} /> : <BsPauseCircle size={40} />}
+              {(playing && currentSong?.streamingStatus !== 2) ? <BsPauseCircle size={40} /> : <BsPlayCircle size={40} />}
             </div>
 
             <div
@@ -155,19 +188,29 @@ const PlayerControl = () => {
           </div>
 
           <div className="hidden md:flex items-center justify-between w-full">
-            <span className='text-gray-600 text-xs dark:text-gray-400'>
-              {convertDuration(currentTime || 0)}
-            </span>
-            <div className="w-full mx-2">
-              <RangeSlide
-                className="w-full"
-                value={currentSong?.duration ? currentTime / currentSong?.duration * 100 : 0}
-                onChange={handleChangeTime}
-              />
-            </div>
-            <span className='text-gray-600 text-xs dark:text-gray-400'>
-              {convertDuration(currentSong?.duration || 0)}
-            </span>
+            {currentSong?.streamingStatus === 2 ? (
+              <div className="mx-auto">
+                <Badge color="failure">
+                  Nâng cấp VIP để nghe nhạc không giới hạn
+                </Badge>
+              </div>
+            ) : (
+              <>
+                <span className='text-gray-600 text-xs dark:text-gray-400'>
+                  {convertDuration(currentTime || 0)}
+                </span>
+                <div className="w-full mx-2">
+                  <RangeSlide
+                    className="w-full"
+                    value={currentSong?.duration ? currentTime / currentSong?.duration * 100 : 0}
+                    onChange={handleChangeTime}
+                  />
+                </div>
+                <span className='text-gray-600 text-xs dark:text-gray-400'>
+                  {convertDuration(currentSong?.duration || 0)}
+                </span>
+              </>
+            )}
           </div>
           <audio
             ref={audioRef}
@@ -197,10 +240,10 @@ const PlayerControl = () => {
               <BsMusicNoteList className='mx-auto' size={20} />
             </button>
             {showPlaylist &&
-              <div className="absolute right-0 bottom-20 z-20 side-sheet overflow-y-scroll w-96 max-h-layout p-4 bg-gray-100 dark:bg-main rounded-md shadow-2xl">
+              <div className="absolute right-0 bottom-20 z-20 side-sheet overflow-y-scroll w-96 max-h-layout p-4 bg-gray-100 dark:bg-main rounded-md shadow-2xl transition-all duration-300">
                 <div className="flex justify-between items-center pl-2 pr-4 py-2">
                   <p className="text-gray-600 text-xl font-semibold dark:text-gray-300">
-                    Đang phát ({playList.length})
+                    Danh sách đang phát ({playList.length})
                   </p>
                   <button className="text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 rounded-full hover:scale-120" onClick={() => setShowPlaylist(false)}>
                     <BsX size={30} />
@@ -209,8 +252,9 @@ const PlayerControl = () => {
                 {playList.map((song, index) => (
                   <SongCard
                     key={song.encodeId}
-                    playing={currentIndex === index}
+                    playing={currentIndex === index && playing}
                     item={song}
+                    showStartIcon
                     onClick={() => dispatch(setCurrentSongIndex(index))}
                   />
                 ))}

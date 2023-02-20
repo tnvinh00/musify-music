@@ -13,14 +13,15 @@ const AlbumCard = (props: IAlbumCardProps) => {
   return (
     <div
       aria-label="card-item-"
-      className="flex flex-col w-[400px] cursor-pointer"
+      className="flex flex-col cursor-pointer"
       onClick={onClick}
     >
       <div className="relative flex-shrink-0 mb-5 h-[250px] lg:h-[300px]">
         <Image
           src={item.thumbnailM ? item.thumbnailM : item.thumbnail}
           alt=""
-          fill={true}
+          width={500}
+          height={500}
           className="object-cover w-full h-full shadow-sm rounded-lg hover:opacity-90 transition duration-150 ease-in-out hover:shadow-lg hover:scale-105"
         />
       </div>
