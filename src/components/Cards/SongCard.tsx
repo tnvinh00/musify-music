@@ -36,14 +36,14 @@ const SongCard = (props: ISongCardProps) => {
       </div>
       <Image
         className="object-cover h-full rounded-lg w-1/5 md:h-auto"
-        src={item.thumbnailM}
+        src={item.thumbnailM || item.thumb || ''}
         alt=""
         width={500}
         height={500}
       />
       <div className="flex flex-col justify-between px-4 leading-normal overflow-hidden">
         <h5 className="truncate mb-1 font-bold tracking-tight text-gray-900 dark:text-white" title={item.title}>
-          {item.title}
+          {item.title || item.name}
           {item.streamingStatus === 2 && (
             <Badge color="warning" className='inline-flex ml-3'>
               VIP
@@ -51,12 +51,12 @@ const SongCard = (props: ISongCardProps) => {
           )}
         </h5>
         <p className="truncate mb-1 text-sm font-normal text-gray-700 dark:text-gray-400">
-          {item.artistsNames}
+          {item?.artists?.map((artist) => artist.name).join(', ')}
         </p>
         <div className="flex items-baseline">
-          <span className="text-sm font-normal text-gray-700 dark:text-gray-400 mr-3">
+          {item.duration && <span className="text-sm font-normal text-gray-700 dark:text-gray-400 mr-3">
             {convertDuration(item.duration)}
-          </span>
+          </span>}
         </div>
       </div>
     </div>

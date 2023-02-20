@@ -22,10 +22,6 @@ export type ArtistPageProps = {
 const ArtistPage = (props: ArtistPageProps) => {
   const { data } = props;
   const dispatch = useDispatch();
-
-  const saveToPlaylist = (playList: ISong[], index: number, play = true) => {
-    dispatch(setPlayList({ playList, index, play }));
-  }
   
   return (
     <>

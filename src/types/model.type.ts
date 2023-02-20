@@ -70,6 +70,8 @@ export interface ISong {
   streamingStatus: number;
   thumbnail: string;
   thumbnailM: string;
+  thumb?: string;
+  name?: string;
   title: string;
   username: string;
   zingChoice: boolean;

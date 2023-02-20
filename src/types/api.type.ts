@@ -1,7 +1,7 @@
 import { IArtist, IAlbum, IGenre, ISong, ISection } from './model.type';
 
 export type ApiResponseType = {
-  data: ResponseDataType;
+  data: ResponseDataType | ApiSuggestKeywordType;
   err: number;
   msg: string;
   timestamp: number;
@@ -31,19 +31,22 @@ export type ResponseDataType = {
 }
 
 export type ApiSuggestKeywordType = {
-  items: {
-    keyword: {
-      type: number;
-      keyword: string;
-      suggestType: number;
-    }[];
-  } | {
-    suggestions: {
-      type: number;
-      thumb: string;
-      title: string;
-      artists: IArtist[];
-      duration: number;
+  items: [
+    {
+      keyword: {
+        type: number;
+        keyword: string;
+        suggestType: number;
+      }[];
+    }, {
+      suggestions: {
+        type: number;
+        thumb: string;
+        title: string;
+        name: string;
+        artists: IArtist[];
+        duration: number;
+      }[]
     }
-  }[]
+  ];
 }

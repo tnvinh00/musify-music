@@ -1,13 +1,10 @@
-import { Navbar, Button, TextInput, DarkThemeToggle, Flowbite } from 'flowbite-react'
+import SearchInput from 'components/Forms/SearchInput'
+import { Button, DarkThemeToggle, Navbar } from 'flowbite-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
-import SearchIcon from 'components/Icons/SearchIcon'
-import AppModal from 'components/Modal/Modal'
-import LoginForm from 'components/Forms/LoginForm/LoginForm'
-import { GrFormPreviousLink, GrFormNextLink } from 'react-icons/gr'
-import { BsArrowLeftCircleFill, BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs'
 import { useRouter } from 'next/router'
+import React from 'react'
+import { BsArrowLeftCircleFill } from 'react-icons/bs'
 
 const NavBar = () => {
   const router = useRouter()
@@ -55,14 +52,7 @@ const NavBar = () => {
             title="Trở về trang trước"
           />
         </div>
-        <TextInput
-          id="input-success"
-          placeholder="Tìm kiếm bài hát, nghệ sĩ, album..."
-          required={true}
-          icon={SearchIcon}
-          className="text-center w-auto ml-2 md:w-80 lg:w-[40rem]"
-          color="success"
-        />
+        <SearchInput />
       </Navbar.Collapse>
       {/* <AppModal show={showModal} onClose={() => setShowModal(false)}>
           <LoginForm />

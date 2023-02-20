@@ -119,7 +119,7 @@ const PlayerControl = () => {
         <div className='flex justify-between items-center h-full px-4 relative'>
           <div className='flex items-center basis-2/3 md:basis-2/5'>
             <Image
-              src={currentSong?.thumbnailM || ''}
+              src={currentSong?.thumbnailM || currentSong.thumb || ''}
               alt={currentSong?.title || ''}
               height={60}
               width={60}

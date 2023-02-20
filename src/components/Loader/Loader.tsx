@@ -5,7 +5,7 @@ import React from 'react'
 const Loader = (props: { loading: boolean }) => {
   const { loading } = props;
   return (
-    loading ? <div className='absolute top-0 z-50 bg-slate-50 bg-opacity-70 left-0 h-screen w-screen'>
+    loading ? <div className='absolute top-0 z-50 bg-slate-400 bg-opacity-70 left-0 h-screen w-screen'>
       <div className="flex flex-col justify-center items-center h-full">
         <Image
           src="images/loading.svg"

@@ -271,7 +271,7 @@ export const playerSlice = createSlice({
       state.loading = action.payload;
     },
     setPlayList: (state, action) => {
-      state.playList = action.payload.playList;
+      state.playList = action.payload?.concat ? [...action.payload.playList, ...state.playList] : action.payload.playList;
       state.currentIndex = action.payload.index ? action.payload.index : 0;
       state.playing = state.playing ? state.playing : action.payload.play;
       state.loading = false;
@@ -299,7 +299,7 @@ export const playerSlice = createSlice({
       }
       state.currentSong = state.playList[state.currentIndex];
       localStorage.setItem("currentIndex", JSON.stringify(state.currentIndex));
-    }
+    },
   }
 })
 
