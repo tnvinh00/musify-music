@@ -42,7 +42,7 @@ const AlbumPage = ({ albumData }: AlbumPageProps) => {
             alt={albumData?.title}
             width={500}
             height={500}
-            className="object-cover mb-4 shadow-sm rounded-lg hover:opacity-90 transition duration-150 ease-in-out hover:shadow-lg hover:scale-105"
+            className="object-cover mx-auto mb-4 shadow-sm rounded-lg hover:opacity-90 transition duration-150 ease-in-out hover:shadow-lg hover:scale-105"
           />
           <p className='text-center text-gray-600 dark:text-gray-200 font-semibold text-3xl my-3'>
             {albumData?.title}

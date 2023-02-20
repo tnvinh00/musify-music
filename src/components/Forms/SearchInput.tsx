@@ -98,7 +98,7 @@ const SearchInput = () => {
           <p className='text-gray-700 dark:text-gray-400 text-xl font-semibold mt-4'>Gợi ý kết quả</p>
           <div className="flex flex-wrap">
             {suggestions && suggestions[1]?.suggestions.map((item: any, index: number) => (
-              <div key={index} className="w-full md:w-1/2 p-1.5">
+              <div key={index} className="w-full lg:w-1/2 p-1.5">
                 <SongCard item={item} onClick={() => handleClickSong(item)}/>
               </div>
             ))}
