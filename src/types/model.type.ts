@@ -33,7 +33,7 @@ export interface IArtist {
   name: string;
   national?: string;
   oaid?: string;
-  sections: ISection[];
+  sections?: ISection[];
   oalink?: string;
   playlistId: string;
   realname?: string;
