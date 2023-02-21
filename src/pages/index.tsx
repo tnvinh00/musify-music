@@ -72,10 +72,8 @@ const HomePage = (props: IHomePageProps) => {
   return (
     <>
       <AppHeader
-        title={playing ? `${currentSong?.title} - ${currentSong?.artistsNames}`
-          : 'Nghe nhạc ' + newMusicToday[0]?.title + ' - ' + newMusicToday[0]?.artists?.map((item) => item.name).join(', ')}
-        description={playing ? `${currentSong?.title} - ${currentSong?.artistsNames}`
-          : newMusicToday[0]?.sortDescription}
+        title={'Nghe nhạc ' + newMusicToday[0]?.title + ' - ' + newMusicToday[0]?.artists?.map((item) => item.name).join(', ')}
+        description={newMusicToday.map(item => item.sortDescription).join(', ')}
       />
 
       <div className="mb-8 px-2">
