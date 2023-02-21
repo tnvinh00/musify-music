@@ -36,12 +36,12 @@ const SideBar = () => {
       // },
       // {
       //   label: 'Khám phá',
-      //   icon: AiOutlineBarChart,
+      //   icon: HiChartPie,
       //   href: '#'
       // },
       {
         label: '#musifychart',
-        icon: HiChartPie,
+        icon: AiOutlineBarChart,
         href: '/musify-chart'
       },
     ],
