@@ -29,7 +29,7 @@ const AppHeader = (props: AppHeaderProps) => {
 }
 
 AppHeader.defaultProps = {
-  title: 'Home',
+  title: 'Nghe nhạc online mới nhất',
   description: 'Nghe nhạc online cùng Musify Music',
   image: ''
 }

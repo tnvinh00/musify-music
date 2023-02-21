@@ -1,19 +1,13 @@
 import axiosClient from 'api/axios';
 import AppHeader from 'components/AppHeader/AppHeader';
+import ArtistSection from 'components/Sections/ArtistSection';
 import { REST_URL } from 'constants/REST_URL';
 import { Button } from 'flowbite-react';
 import { GetServerSideProps } from 'next';
-import React, { useEffect, useState } from 'react'
-import { ResponseDataType } from 'types/api.type';
-import { IArtist, ISong } from 'types/model.type';
-import { shortNumber } from 'utils/function';
-import { SlUserFollow } from 'react-icons/sl';
 import Image from 'next/image';
-import ArtistSection from 'components/Sections/ArtistSection';
-import Loader from 'components/Loader/Loader';
-import { useRouter } from 'next/router';
-import { setPlayList } from 'store/slices/playerSlice';
-import { useDispatch } from 'react-redux';
+import { SlUserFollow } from 'react-icons/sl';
+import { IArtist } from 'types/model.type';
+import { shortNumber } from 'utils/function';
 
 export type ArtistPageProps = {
   data: IArtist;
@@ -21,8 +15,7 @@ export type ArtistPageProps = {
 
 const ArtistPage = (props: ArtistPageProps) => {
   const { data } = props;
-  const dispatch = useDispatch();
-  
+
   return (
     <>
       <AppHeader

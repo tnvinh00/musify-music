@@ -31,7 +31,7 @@ const AlbumPage = ({ albumData }: AlbumPageProps) => {
   return (
     <>
       <AppHeader
-        title={albumData?.title + " - " + albumData?.artistsNames}
+        title={albumData?.title + " - " + (albumData?.artistsNames || "")}
         description={albumData?.description}
         image={albumData?.thumbnailM}
       />

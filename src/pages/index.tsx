@@ -52,7 +52,9 @@ const HomePage = (props: IHomePageProps) => {
 
   useEffect(() => {
     dispatch(setMusicData(props))
-    saveToPlaylist(newReleases.vPop, 0, false);
+    // if (!playing && !currentSong) {
+    //   saveToPlaylist(newReleases.vPop, 0, false);
+    // }
   }, [props]);
 
   const saveToPlaylist = (playList: ISong[], index: number, play = true) => {

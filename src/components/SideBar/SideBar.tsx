@@ -9,6 +9,7 @@ import { GiMusicalNotes } from 'react-icons/gi'
 import { SiMusicbrainz } from 'react-icons/si'
 import { BiCategoryAlt } from 'react-icons/bi'
 import { FaFeather } from 'react-icons/fa'
+import Link from 'next/link'
 
 export type ISideBarMenu = {
   label?: string;
@@ -28,20 +29,20 @@ const SideBar = () => {
         label: 'Bộ sưu tập',
         icon: BsMusicNoteList,
       },
-      {
-        label: 'Theo dõi',
-        icon: BsMusicPlayer,
-        href: '#'
-      },
-      {
-        label: 'Khám phá',
-        icon: AiOutlineBarChart,
-        href: '#'
-      },
+      // {
+      //   label: 'Theo dõi',
+      //   icon: BsMusicPlayer,
+      //   href: '#'
+      // },
+      // {
+      //   label: 'Khám phá',
+      //   icon: AiOutlineBarChart,
+      //   href: '#'
+      // },
       {
         label: '#musifychart',
         icon: HiChartPie,
-        href: '#'
+        href: '/musify-chart'
       },
     ],
     [
@@ -71,14 +72,14 @@ const SideBar = () => {
           {menuItems.map((itemGroup, index) => (
             <Sidebar.ItemGroup key={index}>
               {itemGroup.map((item, index) => (
-                <Sidebar.Item
-                  href="#"
-                  key={index}
-                  icon={item.icon}
-                  title={item.label}
-                >
-                  {item.label}
-                </Sidebar.Item>
+                <Link key={index} href={item.href || ''}>
+                  <Sidebar.Item
+                    icon={item.icon}
+                    title={item.label}
+                  >
+                    {item.label}
+                  </Sidebar.Item>
+                </Link>
               ))}
             </Sidebar.ItemGroup>
           ))}

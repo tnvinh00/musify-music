@@ -1,24 +1,19 @@
-import RangeSlide from 'components/Forms/RangeSlider/RangeSlider'
-import React, { useEffect, useRef, useState } from 'react'
-import {
-  IoPlaySkipForward,
-  IoPlaySkipBack,
-  IoRepeat,
-  IoShuffle,
-  IoHeartOutline,
-} from 'react-icons/io5'
-import { BsFillVolumeMuteFill, BsFillVolumeUpFill, BsPauseCircle, BsPlayCircle, BsMusicNoteList, BsX } from 'react-icons/bs'
-import { useSelector } from 'react-redux'
-import { selectPlayer, setPlayList } from 'store/slices/playerSlice';
-import Image from 'next/image'
-import { setMuted, setRepeat, setVolume, setPlaying, setShuffle, setCurrentTime, nextSong, prevSong, setCurrentSongIndex } from 'store/slices/playerSlice'
-import { useDispatch } from 'react-redux'
-import { convertDuration, getAudioUrl } from 'utils/function'
 import SongCard from 'components/Cards/SongCard'
+import RangeSlide from 'components/Forms/RangeSlider/RangeSlider'
 import { Badge } from 'flowbite-react'
-import { GiMusicalNotes } from 'react-icons/gi'
+import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
+import { BsFillVolumeMuteFill, BsFillVolumeUpFill, BsMusicNoteList, BsPauseCircle, BsPlayCircle, BsX } from 'react-icons/bs'
+import { GiMusicalNotes } from 'react-icons/gi'
+import {
+  IoHeartOutline, IoPlaySkipBack, IoPlaySkipForward, IoRepeat,
+  IoShuffle
+} from 'react-icons/io5'
+import { useDispatch, useSelector } from 'react-redux'
+import { nextSong, prevSong, selectPlayer, setCurrentSongIndex, setCurrentTime, setMuted, setPlaying, setPlayList, setRepeat, setShuffle, setVolume } from 'store/slices/playerSlice'
 import { IArtist } from 'types/model.type'
+import { convertDuration, getAudioUrl } from 'utils/function'
 
 const PlayerControl = () => {
   const dispatch = useDispatch();
@@ -27,17 +22,22 @@ const PlayerControl = () => {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  useEffect(() => {
-    const playListStorage = (typeof window !== "undefined") ? JSON.parse(localStorage.getItem('playList') || '{}') : null;
-    const indexStorage = (typeof window !== "undefined") ? JSON.parse(localStorage.getItem('currentIndex') || '{}') : null;
+  const [playListStorage, setPlayListStorage] = useState(null);
+  const [indexStorage, setIndexStorage] = useState(null);
 
-    if (playListStorage) {
+  useEffect(() => {
+    setPlayListStorage(JSON.parse(localStorage.getItem('playList') || '{}'))
+    setIndexStorage(JSON.parse(localStorage.getItem('currentIndex') || '{}'))
+  }, []);
+
+  useEffect(() => {
+    if (playListStorage && indexStorage) {
       dispatch(setPlayList({
         playList: playListStorage,
         index: indexStorage
       }));
     }
-  }, []);
+  }, [playListStorage, indexStorage]);
 
   const sideSheetRef = useRef<HTMLDivElement>(null);
 

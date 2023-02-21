@@ -72,6 +72,7 @@ export interface ISong {
   thumbnailM: string;
   thumb?: string;
   name?: string;
+  rakingStatus?: number;
   title: string;
   username: string;
   zingChoice: boolean;

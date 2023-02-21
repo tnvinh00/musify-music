@@ -13,7 +13,7 @@ const Loader = (props: { loading: boolean }) => {
           width={120}
           height={120}
         />
-        <div className='flex'>
+        <div className='flex text-gray-700 dark:text-gray-200'>
           Đang tải...
         </div>
       </div>

@@ -20,7 +20,7 @@ const NavBar = () => {
         <Image
           src="/images/logo-musify.jpg"
           className="mr-3 rounded-md"
-          alt="Flowbite Logo"
+          alt="Musify Logo"
           width={54}
           height={54}
         />
@@ -36,8 +36,8 @@ const NavBar = () => {
           </Button>
         </Link> */}
         <Link href='/login'>
-          <Button className='mr-2 w-24' pill>
-            Login
+          <Button className='mr-2' pill>
+            Đăng nhập
           </Button>
         </Link>
         <DarkThemeToggle />
