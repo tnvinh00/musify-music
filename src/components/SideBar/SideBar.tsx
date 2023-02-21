@@ -10,6 +10,7 @@ import { SiMusicbrainz } from 'react-icons/si'
 import { BiCategoryAlt } from 'react-icons/bi'
 import { FaFeather } from 'react-icons/fa'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export type ISideBarMenu = {
   label?: string;
@@ -18,6 +19,7 @@ export type ISideBarMenu = {
 }
 
 const SideBar = () => {
+  const router = useRouter()
   const menuItems: ISideBarMenu[][] = [
     [
       {
@@ -78,6 +80,7 @@ const SideBar = () => {
               {itemGroup.map((item, index) => (
                 <Link key={index} href={item.href || ''}>
                   <Sidebar.Item
+                    className={router.pathname.includes(item.href || '') ? 'bg-gray-100 dark:bg-gray-700' : ''}
                     icon={item.icon}
                     title={item.label}
                   >
