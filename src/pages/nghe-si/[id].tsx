@@ -78,7 +78,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const data = res.data;
   return {
     props: {
-      data: data,
+      data: data || {},
     },
   };
 }

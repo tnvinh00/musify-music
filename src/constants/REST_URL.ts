@@ -4,7 +4,7 @@ export const REST_URL = {
   LYRICS: '/songlyrics',
   PLAYLIST: '/playlist',
   ALBUM: '/album',
-  ARTIST: '/nghe-si',
+  ARTIST: '/artist',
   CHART: '/homechart',
   TOP100: '/top100',
 
