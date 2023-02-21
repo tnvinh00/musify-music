@@ -1,3 +1,15 @@
+![image](https://user-images.githubusercontent.com/44144438/220451434-33cd694f-db9a-42d1-a0b5-c99b2579b586.png)
+![image](https://user-images.githubusercontent.com/44144438/220451443-209c902c-68c5-492c-9005-7df9c706ab7f.png)
+![image](https://user-images.githubusercontent.com/44144438/220452017-5ed046d3-fd34-4e10-9955-0eeb4c313ee6.png)
+![image](https://user-images.githubusercontent.com/44144438/220451726-fda32d65-a614-47fc-a79f-abe79fa41115.png)
+![image](https://user-images.githubusercontent.com/44144438/220452058-015219f5-3ffd-4815-b172-4f4e9fb06414.png)
+![image](https://user-images.githubusercontent.com/44144438/220452361-60abfb2f-12f5-4d7f-8636-dbf61ab57659.png)
+![image](https://user-images.githubusercontent.com/44144438/220452369-1d4f923a-34ea-4fa3-a1ad-925195be78f4.png)
+![image](https://user-images.githubusercontent.com/44144438/220452551-7515bf5a-37ed-4850-8bfc-71206c391573.png)
+![image](https://user-images.githubusercontent.com/44144438/220452555-b5e62ac3-0924-4376-8890-9bd1016d0874.png)
+![image](https://user-images.githubusercontent.com/44144438/220453420-57cef34e-bd61-4ff0-8d35-3a20bdf5b2f1.png)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
