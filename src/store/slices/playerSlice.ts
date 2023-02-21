@@ -78,6 +78,7 @@ export const playerSlice = createSlice({
       state.loading = false;
       state.currentSong = state.playList[state.currentIndex];
       localStorage.setItem("playList", JSON.stringify(state.playList));
+      localStorage.setItem("currentIndex", JSON.stringify(state.currentIndex));
     },
     nextSong: (state) => {
       if (state.shuffle) {

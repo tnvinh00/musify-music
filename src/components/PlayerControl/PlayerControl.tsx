@@ -22,6 +22,8 @@ const PlayerControl = () => {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const playListRef = useRef<HTMLDivElement>(null);
+
   const [playListStorage, setPlayListStorage] = useState(null);
   const [indexStorage, setIndexStorage] = useState(null);
 
@@ -57,6 +59,12 @@ const PlayerControl = () => {
       }, 5000);
     }
   }, [currentSong]);
+
+  useEffect(() => {
+    if (playListRef.current) {
+      playListRef.current.scrollTop = (currentIndex - 2) * 92 + 50;
+    }
+  }, [currentIndex]);
 
   useEffect(() => {
     if (showPlaylist)
@@ -242,7 +250,7 @@ const PlayerControl = () => {
                 <BsMusicNoteList className='mx-auto' size={20} />
               </button>
               {showPlaylist &&
-                <div className="absolute right-0 bottom-20 z-20 side-sheet overflow-y-scroll w-96 max-h-layout p-4 bg-gray-100 dark:bg-main rounded-md shadow-2xl transition-all duration-300">
+                <div ref={playListRef} className="absolute right-0 bottom-20 z-20 side-sheet overflow-y-scroll w-96 max-h-layout p-4 bg-gray-100 dark:bg-main rounded-md shadow-2xl transition-all duration-300">
                   <div className="flex justify-between items-center pl-2 pr-4 py-2">
                     <p className="text-gray-600 text-xl font-semibold dark:text-gray-300">
                       Đang phát ({playList.length})
