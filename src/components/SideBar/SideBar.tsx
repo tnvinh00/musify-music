@@ -28,6 +28,7 @@ const SideBar = () => {
       {
         label: 'Bộ sưu tập',
         icon: BsMusicNoteList,
+        href: '#'
       },
       // {
       //   label: 'Theo dõi',
@@ -54,14 +55,17 @@ const SideBar = () => {
       {
         label: 'Top 100',
         icon: SiMusicbrainz,
+        href: '#'
       },
       {
         label: "Thể loại",
-        icon: BiCategoryAlt
+        icon: BiCategoryAlt,
+        href: '#'
       },
       {
         label: "Chủ đề",
         icon: FaFeather,
+        href: '#'
       }
     ]
   ]
