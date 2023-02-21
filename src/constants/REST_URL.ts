@@ -4,7 +4,13 @@ export const REST_URL = {
   LYRICS: '/songlyrics',
   PLAYLIST: '/playlist',
   ALBUM: '/album',
-  ARTIST: '/artist',
-  SUGGEST: '/suggestionkeyword',
+  ARTIST: '/nghe-si',
   CHART: '/homechart',
+  TOP100: '/top100',
+
+
+  SUGGEST: '/suggestionkeyword',
+  NEW_RELEASE_LIST: 'newreleasechart',
+  HUB_HOME: '/hubhome',
+  CATEGORY: '/category',
 }

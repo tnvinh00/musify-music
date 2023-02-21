@@ -50,17 +50,17 @@ const SideBar = () => {
       {
         label: 'Nhạc mới',
         icon: GiMusicalNotes,
-        href: '#'
+        href: '/nhac-moi'
       },
       {
         label: 'Top 100',
         icon: SiMusicbrainz,
-        href: '#'
+        href: '/top-100'
       },
       {
         label: "Thể loại",
         icon: BiCategoryAlt,
-        href: '#'
+        href: '/the-loai'
       },
       {
         label: "Chủ đề",

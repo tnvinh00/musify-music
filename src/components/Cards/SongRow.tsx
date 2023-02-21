@@ -44,9 +44,9 @@ const SongRow = (props: ISongRowProps) => {
                         {!!item?.rakingStatus && Math.abs(item?.rakingStatus)}
                       </span>
                       {item?.rakingStatus > 0 ? (
-                        <RiArrowDownSFill size={24} className="text-green-600 mr-2" />
+                        <RiArrowUpSFill size={24} className="text-green-500 mr-2" />
                       ) : item?.rakingStatus < 0 ? (
-                        <RiArrowUpSFill size={24} className="text-red-600 mr-2" />
+                        <RiArrowDownSFill size={24} className="text-red-600 mr-2" />
                       ) : (
                         <RiSubtractLine size={24} className="text-gray-400 mr-4" />
                       )}
@@ -59,8 +59,8 @@ const SongRow = (props: ISongRowProps) => {
               <Image
                 src={item?.thumbnailM || ''}
                 alt={item?.title || ''}
-                height={60}
-                width={60}
+                height={200}
+                width={200}
                 className='w-16 h-16 bg-gray-300 rounded-md'
               />
               <div className='ml-3 truncate w-full'>

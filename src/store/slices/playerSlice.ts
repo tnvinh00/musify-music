@@ -78,6 +78,7 @@ export const playerSlice = createSlice({
       state.currentIndex = action.payload.index ? action.payload.index : 0;
       state.playing = state.playing ? state.playing : action.payload.play;
       state.loading = false;
+      state.shuffleList = [];
       state.currentSong = state.playList[state.currentIndex];
       localStorage.setItem("playList", JSON.stringify(state.playList));
       localStorage.setItem("currentIndex", JSON.stringify(state.currentIndex));
@@ -85,6 +86,9 @@ export const playerSlice = createSlice({
     nextSong: (state) => {
       if (state.shuffle) {
         // random index from playList not in shuffleList
+        if (state.shuffleList.length >= state.playList.length) {
+          state.shuffleList = [];
+        }
         let newIndex = Math.floor(Math.random() * state.playList.length);
         while (state.shuffleList.includes(newIndex)) {
           newIndex = Math.floor(Math.random() * state.playList.length);

@@ -96,6 +96,7 @@ export interface IAlbum {
   releaseDate: string;
   sortDescription: string;
   thumbnail: string;
+  thumbnailM: string;
   title: string;
 }
 
@@ -113,4 +114,17 @@ export type ISection = {
   adId: string;
   itemType: string;
   items: IAlbum[] | IArtist[] | ISong[];
+}
+
+export interface ICategory {
+  cover: string;
+  description: string;
+  encodeId: string;
+  link: string;
+  playlists: IAlbum[] | ICategory[];
+  sections: ISection[];
+  thumbnail: string;
+  thumbnailR: string;
+  thumbnailHasText: string;
+  title: string;
 }

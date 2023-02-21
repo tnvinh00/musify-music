@@ -4,7 +4,7 @@ import React from 'react'
 import { IAlbum, ISong } from 'types/model.type';
 
 export interface IAlbumCardProps {
-  item: IAlbum & ISong;
+  item: IAlbum | ISong;
   onClick?: () => void;
 }
 
@@ -21,8 +21,8 @@ const AlbumCard = (props: IAlbumCardProps) => {
           <Image
             src={item.thumbnailM ? item.thumbnailM : item.thumbnail}
             alt=""
-            width={500}
-            height={500}
+            width={1000}
+            height={1000}
             onClick={onClick}
             className="object-cover w-full h-full shadow-sm rounded-lg hover:opacity-90 transition duration-150 ease-in-out hover:shadow-lg hover:scale-105"
           />
@@ -34,7 +34,7 @@ const AlbumCard = (props: IAlbumCardProps) => {
         </h3>
         <div className="text-sm text-gray-600 dark:text-gray-400">
           {item?.artists?.map((artist, index: number) => (
-            <Link href={`/artist/${artist.alias}`} key={artist.alias} className='hover:underline'>
+            <Link href={`/nghe-si/${artist.alias}`} key={artist.alias} className='hover:underline'>
               {index !== 0 && ", "} {artist.name}
             </Link>
           ))}

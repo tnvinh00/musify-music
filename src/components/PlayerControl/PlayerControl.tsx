@@ -131,14 +131,14 @@ const PlayerControl = () => {
               alt={currentSong?.title || ''}
               height={60}
               width={60}
-              className='w-16 h-16 bg-gray-300 rounded-md'
+              className={`w-16 h-16 md:w-20 md:h-20 bg-gray-300 transition duration-300 ${playing ? 'rounded-full spin' : 'rounded-md'}`}
               onClick={() => setShowPlaylist(!showPlaylist)}
             />
             <div className='ml-2 md:ml-4 overflow-hidden'>
               <p className='truncate text-gray-600 dark:text-gray-300 mb-1'>{currentSong?.title}</p>
               <p className='truncate text-gray-400 dark:text-gray-400 text-sm'>
                 {currentSong?.artists?.map((artist: IArtist, index: number) => (
-                  <Link href={`/artist/${artist.alias}`} key={artist.alias} className='hover:underline'>
+                  <Link href={`/nghe-si/${artist.alias}`} key={artist.alias} className='hover:underline'>
                     {index !== 0 && ", "} {artist.name}
                   </Link>
                 ))}

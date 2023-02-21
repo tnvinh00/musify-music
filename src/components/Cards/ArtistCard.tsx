@@ -13,12 +13,12 @@ const ArtistCard = (props: IArtistCardProps) => {
 
   return (
     <div className="flex flex-col items-center pb-10">
-      <Link href={`/artist/${item.alias}`}>
+      <Link href={`/nghe-si/${item.alias}`}>
         <Image
           src={item.cover || item.thumbnailM || ''}
           alt=""
-          width={500}
-          height={500}
+          width={1000}
+          height={1000}
           className="object-cover cursor-pointer w-28 h-28 shadow-sm rounded-full hover:opacity-90 transition duration-150 ease-in-out hover:shadow-lg hover:scale-105"
         />
       </Link>

@@ -10,6 +10,7 @@ import { setPlayList } from 'store/slices/playerSlice';
 import AppHeader from 'components/AppHeader/AppHeader';
 import { Button } from 'flowbite-react';
 import Link from 'next/link';
+import ListChartSong from 'components/Charts/ListChartSong';
 
 export interface MusifyChartPageProps {
   musifyChart: ISong[];
@@ -24,8 +25,6 @@ export interface MusifyChartPageProps {
 const MusifyChartPage = (props: MusifyChartPageProps) => {
   const { musifyChart, weekChart } = props;
 
-  const [showMore, setShowMore] = useState(false);
-
   const dispatch = useDispatch();
   return (
     <>
@@ -33,34 +32,7 @@ const MusifyChartPage = (props: MusifyChartPageProps) => {
         title={`Bảng xếp hạng #musifychart ngày ${new Date().toLocaleDateString('vi-VN')} - BXH Nhạc Việt, Nhạc Hàn, Nhạc Âu Mỹ mới nhất`}
         description={`BXH #musifychart ngày ${new Date().toLocaleDateString('vi-VN')} - BXH Nhạc Việt, Nhạc Hàn, Nhạc Âu Mỹ mới nhất`}
       />
-      <h1 className='font-bold text-4xl ml-4 mb-4 text-shadow text-gray-700 dark:text-gray-200'>
-        #musifychart
-      </h1>
-      <div className='flex flex-wrap justify-center flex-row md:px-3'>
-        {musifyChart.slice(0, showMore ? musifyChart.length : 20).map((song, index) => (
-          <div className="w-full" key={index}>
-            <SongRow
-              item={song}
-              index={index + 1}
-              isChart
-              showStatus
-              onClick={() => dispatch(setPlayList({
-                playList: musifyChart,
-                index: index,
-                play: true,
-              }))}
-            />
-          </div>
-        ))}
-        <Button
-          color="purple"
-          pill={true}
-          className="my-4"
-          onClick={() => setShowMore(!showMore)}
-        >
-          {showMore ? 'Thu gọn' : 'Hiển thị toàn bộ'}
-        </Button>
-      </div>
+      <ListChartSong items={musifyChart} title="#musifychart" />
 
       <h1 className='font-bold text-4xl mt-8 ml-4 mb-8 text-shadow text-gray-700 dark:text-gray-200'>
         Bảng xếp hạng tuần

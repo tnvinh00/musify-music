@@ -12,6 +12,12 @@ import Loader from 'components/Loader/Loader';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/grid";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-family',

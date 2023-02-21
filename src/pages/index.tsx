@@ -1,19 +1,22 @@
-import AppHeader from 'components/AppHeader/AppHeader'
-import { GetServerSideProps } from 'next'
 import axiosClient from 'api/axios'
-import { REST_URL } from 'constants/REST_URL'
-import { ResponseDataType } from 'types/api.type'
-import { getSectionByType } from 'utils/function'
-import { IAlbum, IArtist, IBanner, ISection, ISong } from 'types/model.type';
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react';
-import { setMusicData } from 'store/slices/musicSlice'
+import AppHeader from 'components/AppHeader/AppHeader'
 import AlbumCard from 'components/Cards/AlbumCard'
 import ArtistCard from 'components/Cards/ArtistCard'
-import { Tabs } from 'flowbite-react'
 import SongCard from 'components/Cards/SongCard'
-import { setPlayList, setLoading, selectPlayer } from 'store/slices/playerSlice'
+import { REST_URL } from 'constants/REST_URL'
+import { Tabs } from 'flowbite-react'
+import { GetServerSideProps } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setMusicData } from 'store/slices/musicSlice'
+import { selectPlayer, setPlayList } from 'store/slices/playerSlice'
+import { Autoplay, Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { ResponseDataType } from 'types/api.type'
+import { IAlbum, IArtist, IBanner, ISong } from 'types/model.type'
+import { getSectionByType } from 'utils/function'
 
 export interface IHomePageProps {
   album: ISong[];
@@ -30,6 +33,10 @@ export interface IHomePageProps {
   recentPlaylist: IAlbum[];
   top100: ISong[];
   trendingArtists: IArtist[];
+  weekChart: {
+    banner: string;
+    link: string;
+  }[];
 }
 
 const HomePage = (props: IHomePageProps) => {
@@ -44,6 +51,7 @@ const HomePage = (props: IHomePageProps) => {
     recentPlaylist,
     top100,
     trendingArtists,
+    weekChart,
   } = props;
 
   const { playing, currentSong } = useSelector(selectPlayer);
@@ -69,6 +77,56 @@ const HomePage = (props: IHomePageProps) => {
         description={playing ? `${currentSong?.title} - ${currentSong?.artistsNames}`
           : newMusicToday[0]?.sortDescription}
       />
+
+      <div className="mb-8 px-2">
+        <Swiper
+          spaceBetween={15}
+          breakpoints={{
+            480: {
+              slidesPerView: 1,
+            },
+            640: {
+              slidesPerView: 2,
+            },
+          }}
+          loop={true}
+          autoplay={{
+            delay: 3000,
+          }}
+          pagination={{ clickable: true }}
+          modules={[Pagination, Autoplay]}
+          className='mt-6'
+        >
+          {bannerList?.map((item, index) => (
+            <SwiperSlide
+              className=''
+              key={index}
+            >
+              {item.type === 4 ? (
+                <Link
+                  href={`/album/${item.link.split('/')[2]}/${item.encodeId}`}
+                >
+                  <Image
+                    src={item.banner}
+                    alt={item.title}
+                    width={500}
+                    height={500}
+                    className="object-cover h-64 rounded-2xl"
+                  />
+                </Link>
+              ) : (
+                <Image
+                  src={item.banner}
+                  alt={item.title}
+                  width={500}
+                  height={500}
+                  className="object-cover h-64 rounded-2xl"
+                />
+              )}
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
 
       <h2 className='text-shadow mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
         Mới phát hành
@@ -132,6 +190,31 @@ const HomePage = (props: IHomePageProps) => {
       </div>
 
       <h2 className='text-shadow mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
+        BXH Tuần
+      </h2>
+      <div className="flex flex-wrap w-full">
+        {weekChart?.map((item, index) => {
+          let url = item.link.replace('.html', '');
+          url = `album/${url.split('/')[2]}/${url.split('/')[3]}`
+          return (
+            <div className="flex p-2 w-full md:w-1/3" key={index}>
+              <Link
+                href={url}
+              >
+                <Image
+                  src={item.banner}
+                  alt=''
+                  width={500}
+                  height={500}
+                  className="object-cover h-32 rounded-2xl hover:opacity-80 hover:scale-105 transition duration-300"
+                />
+              </Link>
+            </div>
+          )
+        })}
+      </div>
+
+      <h2 className='text-shadow mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
         Top 100
       </h2>
       <div className="flex flex-wrap w-full">
@@ -192,7 +275,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     props: {
       album: getSectionByType(listItems, 'playlist', 'hAlbum')?.items || [],
       artistSpotlight: getSectionByType(listItems, 'artistSpotlight')?.items || [],
-      bannerList: getSectionByType(listItems, 'banner')?.items || [],
+      bannerList: getSectionByType(listItems, 'banner', 'hSlider')?.items || [],
       newMusicToday: getSectionByType(listItems, 'playlist', 'hAutoTheme2')?.items || [],
       newReleaseChart: getSectionByType(listItems, 'newReleaseChart')?.items || [],
       newReleases: getSectionByType(listItems, 'new-release')?.items || [],
@@ -200,7 +283,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
       recentPlaylist: getSectionByType(listItems, 'recentPlaylist')?.items || [],
       top100: getSectionByType(listItems, 'playlist', 'h100')?.items || [],
       trendingArtists: getSectionByType(listItems, 'playlist', 'hArtistTheme')?.items || [],
-      listItems,
+      weekChart: getSectionByType(listItems, 'weekChart')?.items || [],
     },
   };
 }

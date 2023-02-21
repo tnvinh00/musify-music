@@ -28,14 +28,14 @@ const SongCard = (props: ISongCardProps) => {
               src="https://zmp3-static.zmdcdn.me/skins/zmp3-v6.1/images/icons/icon-playing.gif"
               alt="playing"
               className='h-5 w-5 mr-3.5'
-              width={50}
-              height={50}
+              width={200}
+              height={200}
             />
           ) : <HiOutlineMusicNote size={20} className="text-gray-400 mr-4" />
         )}
       </div>
       <Image
-        className="object-cover h-full rounded-lg w-1/5 md:h-auto"
+        className={`object-cover h-full w-1/5 md:h-auto ${playing ? 'rounded-full spin' : 'rounded-lg'}`}
         src={item.thumbnailM || item.thumb || ''}
         alt=""
         width={500}

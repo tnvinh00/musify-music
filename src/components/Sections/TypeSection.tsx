@@ -3,22 +3,17 @@ import { Grid, Navigation, Pagination, Autoplay } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { IAlbum, IArtist, ISection, ISong } from 'types/model.type';
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/grid";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import AlbumCard from 'components/Cards/AlbumCard';
 import ArtistCard from 'components/Cards/ArtistCard';
 import SongCard from 'components/Cards/SongCard';
 import { useDispatch } from 'react-redux';
 import { setPlayList } from 'store/slices/playerSlice';
 
-export interface IArtistSectionProps {
+export interface ITypeSectionProps {
   section: ISection;
 }
 
-const ArtistSection = (props: IArtistSectionProps) => {
+const TypeSection = (props: ITypeSectionProps) => {
   const { section } = props;
   const dispatch = useDispatch();
 
@@ -55,7 +50,7 @@ const ArtistSection = (props: IArtistSectionProps) => {
   }
 
   return (
-    <div className='mt-12'>
+    <div className='mt-6 md:mt-8'>
       <p className='text-shadow text-gray-700 dark:text-gray-200 text-2xl md:text-3xl font-medium'>
         {section.title}
       </p>
@@ -88,7 +83,7 @@ const ArtistSection = (props: IArtistSectionProps) => {
         }}
         pagination={section.sectionType === "song" ? false : { clickable: true }}
         modules={[Grid, Navigation, Pagination, Autoplay]}
-        className='mt-6'
+        className='mt-6 mySlider'
       >
         {section.items?.map((item, index) => (
           <SwiperSlide
@@ -103,4 +98,4 @@ const ArtistSection = (props: IArtistSectionProps) => {
   )
 }
 
-export default ArtistSection
+export default TypeSection
