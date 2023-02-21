@@ -252,8 +252,8 @@ const PlayerControl = () => {
               {showPlaylist &&
                 <div ref={playListRef} className="absolute right-0 bottom-20 z-20 side-sheet overflow-y-scroll w-96 max-h-layout p-4 bg-gray-100 dark:bg-main rounded-md shadow-2xl transition-all duration-300">
                   <div className="flex justify-between items-center pl-2 pr-4 py-2">
-                    <p className="text-gray-600 text-xl font-semibold dark:text-gray-300">
-                      Đang phát ({playList.length})
+                    <p className="text-gray-600 text-xl dark:text-gray-300">
+                      Đang phát <b>({currentIndex + 1}/{playList.length})</b>
                     </p>
                     <button className="text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 rounded-full hover:scale-120" onClick={() => setShowPlaylist(false)}>
                       <BsX size={30} />

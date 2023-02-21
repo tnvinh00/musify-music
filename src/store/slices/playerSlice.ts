@@ -8,6 +8,7 @@ export interface PlayerState {
   repeat: boolean;
   playing: boolean;
   currentTime: number;
+  shuffleList: number[];
   currentIndex: number;
   currentSong?: ISong;
   playList: ISong[];
@@ -22,6 +23,7 @@ const initialState: PlayerState = {
   playing: false,
   currentTime: 0,
   currentIndex: 0,
+  shuffleList: [],
   currentSong: undefined,
   playList: [],
   loading: false,
@@ -82,7 +84,12 @@ export const playerSlice = createSlice({
     },
     nextSong: (state) => {
       if (state.shuffle) {
-        const newIndex = Math.floor(Math.random() * state.playList.length);
+        // random index from playList not in shuffleList
+        let newIndex = Math.floor(Math.random() * state.playList.length);
+        while (state.shuffleList.includes(newIndex)) {
+          newIndex = Math.floor(Math.random() * state.playList.length);
+        }
+        state.shuffleList.push(newIndex);
         state.currentIndex = newIndex;
         state.currentSong = state.playList[newIndex];
       } else {
