@@ -64,7 +64,7 @@ const PlayerControl = () => {
     if (playListRef.current) {
       playListRef.current.scrollTop = (currentIndex - 2) * 92 + 50;
     }
-  }, [currentIndex]);
+  }, [currentIndex, showPlaylist]);
 
   useEffect(() => {
     if (showPlaylist)
