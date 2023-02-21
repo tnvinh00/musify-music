@@ -92,10 +92,10 @@ const SideBar = () => {
               <span className="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-orange-200 dark:text-orange-900">Beta</span>
             </div>
             <p className="mb-3 text-sm text-blue-800 dark:text-blue-400">
-              Nghe nhạc không quảng cáo cùng kho nhạc VIP
+              Nghe nhạc không quảng cáo cùng kho nhạc VIP. Nâng cấp VIP ngay
             </p>
-            <a className="text-sm font-bold text-blue-800 underline hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300" href="#">
-              Nâng cấp VIP ngay
+            <a className="text-sm font-bold text-blue-800 underline hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300" href="https://vinhisme.site/" target="_blank" rel="noreferrer">
+              @vinhisme
             </a>
           </div>
         </Sidebar.Items>
