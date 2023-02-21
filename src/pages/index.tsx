@@ -70,7 +70,7 @@ const HomePage = (props: IHomePageProps) => {
           : newMusicToday[0]?.sortDescription}
       />
 
-      <h2 className='mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
+      <h2 className='text-shadow mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
         Mới phát hành
       </h2>
       <Tabs.Group
@@ -118,7 +118,7 @@ const HomePage = (props: IHomePageProps) => {
         </Tabs.Item>
       </Tabs.Group>
 
-      <h2 className='mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
+      <h2 className='text-shadow mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
         Album hôm nay
       </h2>
       <div className="flex flex-wrap w-full">
@@ -131,7 +131,7 @@ const HomePage = (props: IHomePageProps) => {
         ))}
       </div>
 
-      <h2 className='mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
+      <h2 className='text-shadow mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
         Top 100
       </h2>
       <div className="flex flex-wrap w-full">
@@ -144,7 +144,7 @@ const HomePage = (props: IHomePageProps) => {
         ))}
       </div>
 
-      <h2 className='mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
+      <h2 className='text-shadow mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
         Gần đây
       </h2>
       <div className="flex flex-wrap w-full">
@@ -157,7 +157,7 @@ const HomePage = (props: IHomePageProps) => {
         ))}
       </div>
 
-      <h2 className='mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>Ca sĩ nổi bật</h2>
+      <h2 className='text-shadow mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>Ca sĩ nổi bật</h2>
       <div className="flex flex-wrap w-full">
         {trendingArtists.map((item, index) => (
           <div className="flex p-2 w-1/2 sm:w-1/3 md:w-1/3 lg:w-1/4 xl:w-1/5" key={index}>
@@ -168,7 +168,7 @@ const HomePage = (props: IHomePageProps) => {
         ))}
       </div>
 
-      <h2 className='mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
+      <h2 className='text-shadow mt-16 mb-2 ml-2 text-gray-800 text-3xl font-bold dark:text-gray-100'>
         Có thể bạn sẽ thích
       </h2>
       <div className="flex flex-wrap w-full mt-4">

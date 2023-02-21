@@ -56,7 +56,7 @@ const ArtistSection = (props: IArtistSectionProps) => {
 
   return (
     <div className='mt-12'>
-      <p className='text-gray-700 dark:text-gray-200 text-2xl md:text-3xl font-medium'>
+      <p className='text-shadow text-gray-700 dark:text-gray-200 text-2xl md:text-3xl font-medium'>
         {section.title}
       </p>
       <Swiper

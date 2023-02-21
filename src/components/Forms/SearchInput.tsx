@@ -1,4 +1,4 @@
-import { TextInput } from 'flowbite-react'
+import { Spinner, TextInput } from 'flowbite-react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useCallback, useRef, useState, useEffect } from 'react';
 import { ApiSuggestKeywordType } from 'types/api.type';
@@ -14,6 +14,7 @@ const SearchInput = () => {
   const [suggestions, setSuggestions] = useState<any>()
   const inputRef = useRef<HTMLInputElement>(null)
   const divRef = useRef<HTMLDivElement>(null)
+  const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -30,12 +31,15 @@ const SearchInput = () => {
   );
 
   const getSuggestions = async (keyword: string) => {
+    setLoading(true)
+    setSuggestions([])
     const res = await axiosClient2.get<ApiSuggestKeywordType>(REST_URL.SUGGEST, {
       params: {
         keyword: keyword
       }
     });
     setSuggestions(res.data.items);
+    setLoading(false)
   }
 
   const onClickResult = (keyword: string) => {
@@ -84,7 +88,10 @@ const SearchInput = () => {
       />
       {showBox && keyword &&
         <div className="absolute inset-x-0 w-full ml-1 top-11 z-20 side-sheet overflow-y-scroll max-h-layout p-4 bg-gray-100 dark:bg-main rounded-md shadow-2xl transition-all duration-300">
-          <p className='text-gray-700 dark:text-gray-400 text-xl font-semibold'>Từ khóa liên quan</p>
+          <p className='text-gray-700 dark:text-gray-400 text-lg underline font-semibold'>Từ khóa liên quan:</p>
+          {loading && (
+            <Spinner size="md" className='w-full my-6' />
+          )}
           {suggestions && suggestions[0]?.keywords.map((item: any, index: number) => (
             <p
               key={index}
@@ -95,7 +102,10 @@ const SearchInput = () => {
             </p>
           ))}
 
-          <p className='text-gray-700 dark:text-gray-400 text-xl font-semibold mt-4'>Gợi ý kết quả</p>
+          <p className='text-gray-700 dark:text-gray-400 text-lg underline font-semibold mt-4'>Gợi ý kết quả:</p>
+          {loading && (
+            <Spinner size="md" className='w-full my-6' />
+          )}
           <div className="flex flex-wrap">
             {suggestions && suggestions[1]?.suggestions.map((item: any, index: number) => (
               <div key={index} className="w-full lg:w-1/2 p-1.5">
