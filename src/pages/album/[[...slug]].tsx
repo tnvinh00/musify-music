@@ -47,7 +47,7 @@ const AlbumPage = ({ albumData }: AlbumPageProps) => {
           <p className='text-center text-gray-600 dark:text-gray-200 font-semibold text-3xl my-3'>
             {albumData?.title}
           </p>
-          <p className='text-center text-gray-600 dark:text-gray-400 hover:underline text-lg mb-2'>
+          <p className='text-center text-gray-600 dark:text-gray-400 text-lg mb-2'>
             {albumData?.artists?.map((artist, index: number) => (
               <Link href={`/nghe-si/${artist.alias}`} key={artist.alias} className='hover:underline'>
                 {index !== 0 && ", "} {artist.name}

@@ -120,7 +120,7 @@ const HomePage = (props: IHomePageProps) => {
                   alt={item.title}
                   width={500}
                   height={500}
-                  className="object-cover h-64 rounded-2xl"
+                  className="object-cover h-48 md:h-60 lg:h-80 w-full rounded-2xl"
                 />
               )}
             </SwiperSlide>
