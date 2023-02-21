@@ -96,7 +96,7 @@ const SearchInput = () => {
             <p
               key={index}
               onClick={() => onClickResult(item.keyword)}
-              className="text-gray-700 p-3 cursor-pointer inline-flex w-full items-center dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-700 text-lg"
+              className="text-gray-700 p-3 cursor-pointer inline-flex w-full items-center dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-700 text-base"
             >
               <AiOutlineSearch className='mr-2' />{item.keyword}
             </p>
