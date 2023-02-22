@@ -142,26 +142,26 @@ const PlayerControl = () => {
                 onClick={() => setShowPlaylist(!showPlaylist)}
               />
               {showPlaylist &&
-                  <div ref={playListRef} className="absolute md:hidden left-0 bottom-20 z-20 side-sheet overflow-y-scroll w-96 max-h-layout p-4 bg-gray-100 dark:bg-main rounded-md shadow-2xl transition-all duration-300">
-                    <div className="flex justify-between items-center pl-2 pr-4 py-2">
-                      <p className="text-gray-600 text-xl dark:text-gray-300">
-                        Đang phát <b>({currentIndex + 1}/{playList.length})</b>
-                      </p>
-                      <button className="text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 rounded-full hover:scale-120" onClick={() => setShowPlaylist(false)}>
-                        <BsX size={30} />
-                      </button>
-                    </div>
-                    {playList.map((song, index) => (
-                      <SongCard
-                        key={song.encodeId}
-                        playing={currentIndex === index && playing}
-                        item={song}
-                        showStartIcon
-                        onClick={() => dispatch(setCurrentSongIndex(index))}
-                      />
-                    ))}
+                <div ref={playListRef} className="absolute md:hidden left-0 bottom-20 z-20 side-sheet overflow-y-scroll w-96 max-h-layout p-4 bg-gray-100 dark:bg-main rounded-md shadow-2xl transition-all duration-300">
+                  <div className="flex justify-between items-center pl-2 pr-4 py-2">
+                    <p className="text-gray-600 text-xl dark:text-gray-300">
+                      Đang phát <b>({currentIndex + 1}/{playList.length})</b>
+                    </p>
+                    <button className="text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-500 rounded-full hover:scale-120" onClick={() => setShowPlaylist(false)}>
+                      <BsX size={30} />
+                    </button>
                   </div>
-                }
+                  {playList.map((song, index) => (
+                    <SongCard
+                      key={song.encodeId}
+                      playing={currentIndex === index && playing}
+                      item={song}
+                      showStartIcon
+                      onClick={() => dispatch(setCurrentSongIndex(index))}
+                    />
+                  ))}
+                </div>
+              }
               <div className='ml-2 md:ml-4 overflow-hidden'>
                 <p className='truncate text-gray-600 dark:text-gray-300 mb-1' >{currentSong?.title}</p>
                 <p className='truncate text-gray-400 dark:text-gray-400 text-sm'>
