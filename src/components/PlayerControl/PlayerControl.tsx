@@ -123,7 +123,7 @@ const PlayerControl = () => {
   }
 
   return (
-    <div className='h-[5rem] md:h-[7rem] w-full bg-gray-100 dark:bg-main shadow-md'>
+    <div className='h-[5rem] md:h-[7rem] w-full bg-gray-100 dark:bg-main shadow-md' ref={sideSheetRef} >
       {currentSong ? (
         <>
           {playing && (
@@ -138,11 +138,11 @@ const PlayerControl = () => {
                 alt={currentSong?.title || ''}
                 height={60}
                 width={60}
-                className={`w-16 h-16 md:w-20 md:h-20 bg-gray-300 transition duration-300 ${playing ? 'rounded-full spin' : 'rounded-md'}`}
+                className={`w-16 h-16 md:w-20 md:h-20 cursor-pointer bg-gray-300 transition duration-300 ${playing ? 'rounded-full spin' : 'rounded-md'}`}
                 onClick={() => setShowPlaylist(!showPlaylist)}
               />
               <div className='ml-2 md:ml-4 overflow-hidden'>
-                <p className='truncate text-gray-600 dark:text-gray-300 mb-1'>{currentSong?.title}</p>
+                <p className='truncate text-gray-600 dark:text-gray-300 mb-1' >{currentSong?.title}</p>
                 <p className='truncate text-gray-400 dark:text-gray-400 text-sm'>
                   {currentSong?.artists?.map((artist: IArtist, index: number) => (
                     <Link href={`/nghe-si/${artist.alias}`} key={artist.alias} className='hover:underline'>
@@ -248,7 +248,7 @@ const PlayerControl = () => {
                   onChange={handleChangeVolume}
                 />
               </div>
-              <div className='md:relative' ref={sideSheetRef} >
+              <div className='md:relative'>
                 <button
                   title='Danh sách đang phát'
                   onClick={() => setShowPlaylist(!showPlaylist)}
