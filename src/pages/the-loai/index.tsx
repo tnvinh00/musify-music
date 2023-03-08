@@ -5,7 +5,7 @@ import React from 'react'
 import { ICategory } from 'types/model.type';
 import CategorySlider from 'components/Sliders/CategorySlider';
 import AppHeader from 'components/AppHeader/AppHeader';
-import TopicCard from '../../components/Cards/TopicCard';
+import TopicCard from 'components/Cards/TopicCard';
 
 export interface ICategoryPageProps {
   banner: ICategory[];

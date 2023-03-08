@@ -78,15 +78,16 @@ const SideBar = () => {
           {menuItems.map((itemGroup, index) => (
             <Sidebar.ItemGroup key={index}>
               {itemGroup.map((item, index) => (
-                <Link key={index} href={item.href || ''}>
-                  <Sidebar.Item
-                    className={router.pathname.includes(item.href || '') ? 'bg-gray-100 dark:bg-gray-700' : ''}
-                    icon={item.icon}
-                    title={item.label}
-                  >
-                    {item.label}
-                  </Sidebar.Item>
-                </Link>
+                <Sidebar.Item
+                  key={index}
+                  as={Link}
+                  className={router.pathname.includes(item.href || '') ? 'bg-gray-100 dark:bg-gray-700' : ''}
+                  icon={item.icon}
+                  href={item.href || ''}
+                  title={item.label}
+                >
+                  {item.label}
+                </Sidebar.Item>
               ))}
             </Sidebar.ItemGroup>
           ))}

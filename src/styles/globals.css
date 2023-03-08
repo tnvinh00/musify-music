@@ -13,6 +13,9 @@ body {
   .text-shadow {
     text-shadow: 1px 1px 2px #3560F5;
   }
+  .text-shadow-yellow {
+    text-shadow: 1px 1px 2px #F5D635;
+  }
 }
 
 .spin {
@@ -57,6 +60,12 @@ body {
 
 .sidebar::-webkit-scrollbar, .side-sheet::-webkit-scrollbar, .main-layout::-webkit-scrollbar {
   width: 4px;
+}
+
+@media (max-width: 768px) {
+  .sidebar::-webkit-scrollbar, .side-sheet::-webkit-scrollbar, .main-layout::-webkit-scrollbar {
+    width: 2px;
+  }
 }
 
 .sidebar::-webkit-scrollbar-track, .side-sheet::-webkit-scrollbar-track, .main-layout::-webkit-scrollbar-track {

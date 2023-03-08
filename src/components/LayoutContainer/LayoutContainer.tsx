@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Loader from 'components/Loader/Loader';
 import { useSelector } from 'react-redux';
 import { selectPlayer } from 'store/slices/playerSlice';
@@ -16,7 +16,7 @@ const LayoutContainer = (props: LayoutContainerProps) => {
 
   const { loading } = useSelector(selectPlayer);
 
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   // scroll to top when route change
   useEffect(() => {

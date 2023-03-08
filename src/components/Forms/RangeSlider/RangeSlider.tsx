@@ -9,22 +9,21 @@ export type IRangeSlider = {
 
 const RangeSlide = (props: IRangeSlider) => {
   const { className, value, onChange } = props;
-  const [val, setVal] = React.useState(value);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVal(+e.target.value)
+    // setVal(+e.target.value)
     onChange(+e.target.value)
   }
 
   useEffect(() => {
-    setVal(value)
+    // setVal(value)
   }, [value])
 
   useEffect(() => {
     if (ref.current) {
-      ref.current.style.backgroundSize = `${val}% 100%`;
+      ref.current.style.backgroundSize = `${value}% 100%`;
     }
-  }, [val])
+  }, [value])
 
   const ref = useRef<HTMLInputElement>(null);
 
@@ -34,7 +33,7 @@ const RangeSlide = (props: IRangeSlider) => {
         id="small-range"
         type="range"
         title=''
-        value={val}
+        value={value}
         ref={ref}
         onChange={handleChange}
         className={className + " h-1 mb-3 rounded-lg cursor-pointer range-sm appearance-none bg-gray-400 bg-no-repeat bg-slider"}

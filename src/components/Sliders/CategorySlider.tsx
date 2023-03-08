@@ -6,7 +6,7 @@ import { BsArrowRightShort } from 'react-icons/bs';
 import { Grid, Navigation, Pagination, Autoplay } from 'swiper';
 import { SwiperSlide, Swiper } from 'swiper/react';
 import { ICategory } from 'types/model.type';
-import { IAlbum } from '../../types/model.type';
+import { IAlbum } from 'types/model.type';
 
 export interface ICategorySlidersProps {
   item: ICategory;

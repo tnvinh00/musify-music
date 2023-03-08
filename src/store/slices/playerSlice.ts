@@ -1,4 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axiosClient2 from "api/axios2";
+import { REST_URL } from "constants/REST_URL";
 import { ISong } from "types/model.type"
 
 export interface PlayerState {
@@ -10,7 +12,9 @@ export interface PlayerState {
   currentTime: number;
   shuffleList: number[];
   currentIndex: number;
-  currentSong?: ISong;
+  currentSong: ISong;
+  lyric: string;
+  lyricUrl: string;
   playList: ISong[];
   loading: boolean;
 }
@@ -24,10 +28,20 @@ const initialState: PlayerState = {
   currentTime: 0,
   currentIndex: 0,
   shuffleList: [],
-  currentSong: undefined,
+  currentSong: {} as ISong,
+  lyric: '',
+  lyricUrl: '',
   playList: [],
   loading: false,
 }
+
+export const getLyricUrl = createAsyncThunk(
+  "player/getLyricUrl",
+  async (payload: ISong) => {
+    const response = await axiosClient2.get(`${REST_URL.SONGLYRICS}/${payload?.encodeId || payload?.id}`);
+    return response;
+  }
+)
 
 export const playerSlice = createSlice({
   name: "player",
@@ -56,14 +70,9 @@ export const playerSlice = createSlice({
     setRepeat: (state, action) => {
       state.repeat = action.payload;
     },
-    setCurrentSong: (state, action) => {
-      state.currentSong = action.payload;
-      if (action.payload.streamingStatus === 2) {
-        state.playing = false;
-      }
-    },
     setCurrentTime: (state, action) => {
       state.currentTime = action.payload;
+      localStorage.setItem("currentTime", JSON.stringify(state.currentTime));
     },
     setCurrentSongIndex: (state, action) => {
       state.currentIndex = action.payload;
@@ -114,10 +123,18 @@ export const playerSlice = createSlice({
       state.currentSong = state.playList[state.currentIndex];
       localStorage.setItem("currentIndex", JSON.stringify(state.currentIndex));
     },
+    setLyric: (state, action) => {
+      state.lyric = action.payload;
+    }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getLyricUrl.fulfilled, (state, action) => {
+      state.lyricUrl = action.payload.data?.file;
+    });
   }
 })
 
-export const { setVolume, setMuted, setShuffle, setPlaying, setRepeat, setLoading, setCurrentSong, setCurrentSongIndex, setCurrentTime, nextSong, prevSong, setPlayList } = playerSlice.actions;
+export const { setVolume, setMuted, setShuffle, setPlaying, setRepeat, setLyric, setLoading, setCurrentSongIndex, setCurrentTime, nextSong, prevSong, setPlayList } = playerSlice.actions;
 
 export const selectPlayer = (state: { player: PlayerState }) => state.player;
 

@@ -46,6 +46,7 @@ export interface IArtist {
 }
 
 export interface ISong {
+  id?: string;
   album?: IAlbum;
   alias: string;
   aliasTitle?: string;

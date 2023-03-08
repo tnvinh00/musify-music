@@ -3,12 +3,12 @@ import { Button, DarkThemeToggle, Navbar } from 'flowbite-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import { BsArrowLeftCircleFill } from 'react-icons/bs'
 
 const NavBar = () => {
   const router = useRouter()
-  const [showModal, setShowModal] = React.useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   return (
     <Navbar

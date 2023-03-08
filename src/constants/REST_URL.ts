@@ -13,4 +13,5 @@ export const REST_URL = {
   NEW_RELEASE_LIST: 'newreleasechart',
   HUB_HOME: '/hubhome',
   CATEGORY: '/category',
+  SONGLYRICS: '/songlyrics',
 }
