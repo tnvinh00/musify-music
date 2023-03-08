@@ -76,6 +76,7 @@ const SearchInput = () => {
       <TextInput
         ref={inputRef}
         value={keyword}
+        autoFocus
         onFocus={() => setShowBox(true)}
         // onBlur={() => setShowBox(false)}
         onChange={(e) => handleSearch(e.target.value)}
@@ -83,7 +84,7 @@ const SearchInput = () => {
         placeholder="Tìm kiếm bài hát, nghệ sĩ, album..."
         required={true}
         icon={AiOutlineSearch}
-        className="text-center text-lg w-auto ml-2 md:w-80 lg:w-[40rem]"
+        className="text-center text-lg w-auto mx-2 md:w-80 lg:w-[40rem]"
         color="success"
       />
       {showBox && keyword &&

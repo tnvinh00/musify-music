@@ -43,7 +43,7 @@ const NavBar = () => {
         <DarkThemeToggle />
         <Navbar.Toggle />
       </div>
-      <Navbar.Collapse>
+      <Navbar.Collapse className='absolute top-16 left-0'>
         <div className="hidden md:flex items-center text-gray-800 dark:text-white">
           <BsArrowLeftCircleFill
             size={32}
