@@ -137,7 +137,7 @@ const PlayerControl = () => {
             />
           )}
           <div className='flex justify-between items-center h-full px-4 relative'>
-            <div className='flex items-center basis-2/3 md:basis-2/5 relative'>
+            <div className='flex items-center w-2/3 md:basis-2/5 relative'>
               <Image
                 src={currentSong?.thumbnailM || currentSong?.thumb || ''}
                 alt={currentSong?.title || ''}
@@ -180,7 +180,7 @@ const PlayerControl = () => {
               <IoHeartOutline className='hidden md:block ml-4 mr-4 text-gray-800 dark:text-white' size={32} />
             </div>
 
-            <div className='flex items-center justify-center flex-wrap basis-1/3 md:basis-2/5'>
+            <div className='flex items-center justify-center flex-wrap w-1/3 md:basis-2/5'>
               <div className="flex justify-end md:justify-between items-center mb-1 w-full mx-2 md:px-12">
                 <div
                   className={`hidden md:flex items-center justify-center rounded-full cursor-pointer w-8 h-8 hover:bg-gray-300 dark:hover:bg-gray-500 ${shuffle ? 'text-blue-500 dark:text-blue-500' : ' text-gray-800 dark:text-white'}`}
@@ -267,6 +267,7 @@ const PlayerControl = () => {
                 }
                 <RangeSlide
                   value={muted ? 0 : volume}
+                  className="hidden lg:inline-flex"
                   onChange={handleChangeVolume}
                 />
               </div>
@@ -274,7 +275,7 @@ const PlayerControl = () => {
                 <button
                   title='Lời bài hát'
                   onClick={() => setShowLyrics(!showLyrics)}
-                  className='rounded-lg h-11 w-11 text-gray-500 dark:text-gray-100 hover:bg-slate-400 hover:dark:bg-slate-700 hover:text-gray-200 hover:dark:text-gray-200 ml-3 md:ml-5'
+                  className='rounded-lg h-11 w-11 text-gray-500 dark:text-gray-100 hover:bg-slate-400 hover:dark:bg-slate-700 hover:text-gray-200 hover:dark:text-gray-200 ml-3'
                 >
                   <GiMicrophone className='mx-auto' size={20} />
                 </button>
