@@ -9,7 +9,10 @@ const useSongLyric = () => {
   const { lyric, lyricUrl, currentTime, currentSong, playing } = playerState;
 
   useEffect(() => {
-    if (!lyricUrl) return;
+    if (!lyricUrl) {
+      dispatch(setLyric(''));
+      return;
+    }
     const fetchData = async () => {
       const response = await fetch(lyricUrl);
       const text = await response.text();

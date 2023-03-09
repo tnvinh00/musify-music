@@ -133,7 +133,12 @@ const PlayerControl = () => {
         <>
           {playing && (
             <AppHeader
-              title={playing ? `${currentSong?.title} - ${currentSong?.artistsNames}` : ''}
+              title={playing
+                ? `${currentSong?.title} - ${currentSong?.artistsNames
+                  ? currentSong?.artistsNames
+                  : currentSong?.artists?.map((artist: IArtist) => artist.name).join(', ')}`
+                : ''
+              }
             />
           )}
           <div className='flex justify-between items-center h-full px-4 relative'>
@@ -175,7 +180,7 @@ const PlayerControl = () => {
                   height={50}
                 />
               ) : (
-                <GiMusicalNotes size={26} className='ml-5 text-gray-800 dark:text-white hidden md:block' />
+                <GiMusicalNotes size={26} className='ml-[22px] text-gray-800 dark:text-white hidden md:block' />
               )}
               <IoHeartOutline className='hidden md:block ml-4 mr-4 text-gray-800 dark:text-white' size={32} />
             </div>

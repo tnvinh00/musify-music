@@ -58,21 +58,21 @@ body {
   -webkit-text-stroke: 1px #e35050;
 }
 
-.sidebar::-webkit-scrollbar, .side-sheet::-webkit-scrollbar, .main-layout::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 4px;
 }
 
 @media (max-width: 768px) {
-  .sidebar::-webkit-scrollbar, .side-sheet::-webkit-scrollbar, .main-layout::-webkit-scrollbar {
+  *::-webkit-scrollbar {
     width: 2px;
   }
 }
 
-.sidebar::-webkit-scrollbar-track, .side-sheet::-webkit-scrollbar-track, .main-layout::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.sidebar::-webkit-scrollbar-thumb, .side-sheet::-webkit-scrollbar-thumb, .main-layout::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 4px;
 }
