@@ -14,7 +14,7 @@ import {
   IoShuffle
 } from 'react-icons/io5'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLyricUrl, nextSong, prevSong, selectPlayer, setCurrentSongIndex, setCurrentTime, setMuted, setPlaying, setPlayList, setRepeat, setShuffle, setVolume } from 'store/slices/playerSlice'
+import { getLyricUrl, nextSong, prevSong, selectPlayer, setCurrentTime, setInitStorage, setMuted, setPlaying, setRepeat, setShuffle, setVolume } from 'store/slices/playerSlice'
 import { IArtist } from 'types/model.type'
 import { convertDuration, getAudioUrl } from 'utils/function'
 
@@ -22,30 +22,45 @@ const PlayerControl = () => {
   const dispatch = useDispatch();
   const appDispatch = useAppDispatch();
   const playerState = useSelector(selectPlayer);
-  const { muted, playing, repeat, currentTime, currentIndex, volume, playList, shuffle, currentSong } = playerState;
+  const { muted, playing, repeat, currentTime, volume, playList, shuffle, currentSong } = playerState;
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
   //Prevent error HYDRATED when using localStorage
-  const [playListStorage, setPlayListStorage] = useState(null);
-  const [indexStorage, setIndexStorage] = useState(null);
-  const [timeStorage, setTimeStorage] = useState(0);
+  const [storage, setStorage] = useState({
+    playList: [],
+    currentIndex: 0,
+    currentTime: 0,
+    volume: 75,
+    shuffle: false,
+    repeat: false,
+    muted: false,
+  });
 
   useEffect(() => {
-    setPlayListStorage(JSON.parse(localStorage.getItem('playList') || '{}'))
-    setIndexStorage(JSON.parse(localStorage.getItem('currentIndex') || '{}'))
-    setTimeStorage(+(localStorage.getItem('currentTime') || 0))
+    setStorage({
+      playList: JSON.parse(localStorage.getItem('playList') || '[]'),
+      currentIndex: JSON.parse(localStorage.getItem('currentIndex') || '0'),
+      currentTime: +(localStorage.getItem('currentTime') || 0),
+      volume: +(localStorage.getItem('volume') || 75),
+      shuffle: JSON.parse(localStorage.getItem('shuffle') || 'false'),
+      repeat: JSON.parse(localStorage.getItem('repeat') || 'false'),
+      muted: JSON.parse(localStorage.getItem('muted') || 'false'),
+    });
   }, []);
 
   useEffect(() => {
-    if (!!playListStorage) {
-      dispatch(setPlayList({
-        playList: playListStorage,
-        index: indexStorage || 0
+    if (!!storage) {
+      dispatch(setInitStorage({
+        playList: storage.playList,
+        currentIndex: storage.currentIndex,
+        currentTime: storage.currentTime,
+        volume: storage.volume,
+        shuffle: storage.shuffle,
+        repeat: storage.repeat
       }));
-      dispatch(setCurrentTime(timeStorage || 0));
     }
-  }, [playListStorage, indexStorage]);
+  }, [storage]);
 
   const sideSheetRef = useRef<HTMLDivElement>(null);
 
@@ -55,7 +70,7 @@ const PlayerControl = () => {
   // click outside to close playlist
   const handleClickOutside = (event: any) => {
     if (sideSheetRef.current && !sideSheetRef.current.contains(event.target)) {
-      setShowPlaylist(false);
+      // setShowPlaylist(false);
     }
   }
 
@@ -129,7 +144,7 @@ const PlayerControl = () => {
 
   return (
     <div className='h-[5rem] md:h-[7rem] w-full bg-gray-100 dark:bg-main shadow-md' ref={sideSheetRef} >
-      {currentSong ? (
+      {currentSong && playList.length > 0 ? (
         <>
           {playing && (
             <AppHeader
@@ -159,6 +174,7 @@ const PlayerControl = () => {
               <PlayingList
                 open={showPlaylist}
                 showOnMD={false}
+                setShowPlaylist={setShowPlaylist}
                 onClose={() => setShowPlaylist(false)}
               />
               <div className='ml-2 md:ml-4 overflow-hidden'>
@@ -298,6 +314,7 @@ const PlayerControl = () => {
                 />
                 <PlayingList
                   open={showPlaylist}
+                  setShowPlaylist={setShowPlaylist}
                   showOnMD
                   onClose={() => setShowPlaylist(false)}
                 />

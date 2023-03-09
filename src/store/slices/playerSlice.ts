@@ -47,6 +47,17 @@ export const playerSlice = createSlice({
   name: "player",
   initialState,
   reducers: {
+    setInitStorage: (state, action) => {
+      state.playList = action.payload.playList || [];
+      state.currentIndex = action.payload.currentIndex || 0;
+      state.volume = action.payload.volume || 75;
+      state.currentTime = action.payload.currentTime || 0;
+      state.currentSong = state.playList[state.currentIndex] || {};
+      state.playing = action.payload.playing || false;
+      state.shuffle = action.payload.shuffle || false;
+      state.repeat = action.payload.repeat || false;
+      state.muted = action.payload.muted || false;
+    },
     setVolume: (state, action) => {
       if (action.payload == 0) {
         setMuted(true)
@@ -54,21 +65,25 @@ export const playerSlice = createSlice({
         setMuted(false)
       }
       state.volume = action.payload;
+      localStorage.setItem("volume", JSON.stringify(state.volume));
     },
     setMuted: (state, action) => {
       if (!action.payload && state.volume == 0) {
         setVolume(75)
       }
       state.muted = action.payload;
+      localStorage.setItem("muted", JSON.stringify(state.muted));
     },
     setShuffle: (state, action) => {
       state.shuffle = action.payload;
+      localStorage.setItem("shuffle", JSON.stringify(state.shuffle));
     },
     setPlaying: (state, action) => {
       state.playing = action.payload;
     },
     setRepeat: (state, action) => {
       state.repeat = action.payload;
+      localStorage.setItem("repeat", JSON.stringify(state.repeat));
     },
     setCurrentTime: (state, action) => {
       state.currentTime = action.payload;
@@ -125,6 +140,15 @@ export const playerSlice = createSlice({
     },
     setLyric: (state, action) => {
       state.lyric = action.payload;
+    },
+    deleteSong: (state, action) => {
+      // next song if current song is deleted
+      state.playList.splice(action.payload, 1);
+      if (state.currentIndex > action.payload) {
+        state.currentIndex--;
+      }
+      state.currentSong = state.playList[state.currentIndex];
+      localStorage.setItem("playList", JSON.stringify(state.playList));
     }
   },
   extraReducers: (builder) => {
@@ -134,7 +158,22 @@ export const playerSlice = createSlice({
   }
 })
 
-export const { setVolume, setMuted, setShuffle, setPlaying, setRepeat, setLyric, setLoading, setCurrentSongIndex, setCurrentTime, nextSong, prevSong, setPlayList } = playerSlice.actions;
+export const {
+  setVolume,
+  setMuted,
+  setShuffle,
+  setPlaying,
+  setRepeat,
+  setLyric,
+  setInitStorage,
+  deleteSong,
+  setLoading,
+  setCurrentSongIndex,
+  setCurrentTime,
+  nextSong,
+  prevSong,
+  setPlayList
+} = playerSlice.actions;
 
 export const selectPlayer = (state: { player: PlayerState }) => state.player;
 

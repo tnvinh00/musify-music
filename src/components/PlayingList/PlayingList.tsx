@@ -4,15 +4,16 @@ import { useEffect, useRef } from 'react';
 import { BsX } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { selectPlayer, setCurrentSongIndex } from 'store/slices/playerSlice';
+import { deleteSong, selectPlayer, setCurrentSongIndex } from 'store/slices/playerSlice';
 
 export interface IPlayingListProps {
   open: boolean;
   showOnMD?: boolean;
   onClose: () => void;
+  setShowPlaylist: (value: boolean) => void;
 }
 
-const PlayingList = ({ open, showOnMD, onClose }: IPlayingListProps) => {
+const PlayingList = ({ open, showOnMD, onClose, setShowPlaylist }: IPlayingListProps) => {
   const dispatch = useDispatch();
   const playerState = useSelector(selectPlayer);
   const { playing, currentIndex, playList } = playerState;
@@ -41,6 +42,11 @@ const PlayingList = ({ open, showOnMD, onClose }: IPlayingListProps) => {
           playing={currentIndex === index && playing}
           item={song}
           showStartIcon
+          onDelete={() => {
+            dispatch(deleteSong(index));
+            console.log('delete');
+            setShowPlaylist(true);
+          }}
           onClick={() => dispatch(setCurrentSongIndex(index))}
         />
       ))}
